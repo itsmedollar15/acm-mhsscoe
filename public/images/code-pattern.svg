@@ -1,0 +1,11 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="code-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+      <text x="10" y="30" fill="#007bff" opacity="0.1" font-family="monospace" font-size="14">&lt;code&gt;</text>
+      <text x="20" y="50" fill="#007bff" opacity="0.1" font-family="monospace" font-size="14">function()</text>
+      <text x="30" y="70" fill="#007bff" opacity="0.1" font-family="monospace" font-size="14">return {}</text>
+      <text x="10" y="90" fill="#007bff" opacity="0.1" font-family="monospace" font-size="14">&lt;/code&gt;</text>
+    </pattern>
+  </defs>
+  <rect width="500" height="500" fill="url(#code-pattern)"/>
+</svg> 
