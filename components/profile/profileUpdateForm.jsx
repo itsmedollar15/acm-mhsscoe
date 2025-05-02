@@ -92,9 +92,9 @@ const UserProfileUpdateForm = ({ userDetails, updateUserDetails }) => {
               onSaveImage={changePicture}
             />
           )}
-          <div className="relative w-32 h-32 mb-4">
+          <div className="relative w-32 h-32 mb-4 group cursor-pointer">
             {pictureData.url ? (
-              <div className="relative w-full h-full group">
+              <div className="relative w-full h-full">
                 <img
                   src={pictureData.url}
                   alt="Profile Picture"
@@ -111,7 +111,7 @@ const UserProfileUpdateForm = ({ userDetails, updateUserDetails }) => {
                     }}
                     className="!bg-white/20 hover:!bg-white/30 backdrop-blur-sm"
                   >
-                    Edit
+                    Edit Photo
                   </Button>
                   <Button
                     className="!bg-red-500/80 hover:!bg-red-500/90 backdrop-blur-sm"
@@ -123,29 +123,26 @@ const UserProfileUpdateForm = ({ userDetails, updateUserDetails }) => {
                       resetPicture();
                     }}
                   >
-                    Reset
+                    Remove
                   </Button>
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center w-full h-full transition-all duration-300 border-2 border-dashed border-gray-300 rounded-full hover:border-primary hover:bg-gray-50">
-                <Camera className="w-8 h-8 text-gray-400 mb-2" />
-                <Button
-                  type="primary"
-                  size="small"
-                  icon={<Plus className="w-4 h-4" />}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setEditorOpen(true);
-                  }}
-                  className="!bg-primary/80 hover:!bg-primary/90"
-                >
-                  Upload
-                </Button>
+              <div 
+                onClick={() => setEditorOpen(true)}
+                className="flex flex-col items-center justify-center w-full h-full transition-all duration-300 border-2 border-dashed border-gray-300 rounded-full hover:border-primary hover:bg-gray-50 cursor-pointer group"
+              >
+                <Camera className="w-8 h-8 text-gray-400 mb-2 transition-colors group-hover:text-primary" />
+                <span className="text-sm font-medium text-gray-500 group-hover:text-primary">Click to Upload</span>
+                <span className="text-xs text-gray-400 mt-1">or drag and drop</span>
               </div>
             )}
           </div>
-          <p className="text-sm text-gray-500">Upload a profile picture</p>
+          <div className="text-center space-y-1">
+            <p className="text-sm font-medium text-gray-700">Profile Picture</p>
+            <p className="text-xs text-gray-500">Upload a professional photo for your profile</p>
+            <p className="text-xs text-gray-400">Recommended: Square image, max 1MB</p>
+          </div>
         </div>
 
         {/* Personal Information Section */}

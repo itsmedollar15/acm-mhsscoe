@@ -25,7 +25,7 @@ const buttonItem = {
 
 export default function HeroSection() {
   return (
-    <section className="relative flex items-center justify-center min-h-screen pt-24 mt-0 overflow-hidden">
+    <section className="relative flex items-center justify-center min-h-screen pt-16 overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 "></div>
@@ -33,9 +33,9 @@ export default function HeroSection() {
           className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: `url('/images/circuit-pattern.svg')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'repeat'
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "repeat",
           }}
         ></div>
         <div className="absolute bg-blue-200 rounded-full top-1/4 -left-24 w-96 h-96 mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
@@ -46,7 +46,7 @@ export default function HeroSection() {
       <div className="relative z-10 max-w-6xl px-6 mx-auto text-center">
         {/* Main Title with Animation */}
         <motion.div
-          className="relative inline-block"
+          className="relative inline-block mb-4"
           initial="hidden"
           animate="visible"
           variants={titleAnimation}
@@ -77,7 +77,7 @@ export default function HeroSection() {
 
         {/* Student Chapter */}
         <motion.div
-          className="mt-8"
+          className="mt-4"
           initial="hidden"
           animate="visible"
           variants={fadeIn}
@@ -85,23 +85,23 @@ export default function HeroSection() {
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#007bff]">
             Student Chapter
           </h2>
-          <p className="mt-4 text-2xl font-bold tracking-normal text-gray-700 md:text-2xl">
+          <p className="mt-2 text-2xl font-bold tracking-normal text-gray-700 md:text-3xl">
             M.H. Saboo Siddik College of Engineering
           </p>
-          <p className="mt-2 text-lg font-bold tracking-widest text-blue-500/90">
-            2025-26
+          <p className="mt-1 text-lg font-bold tracking-widest text-blue-500/90">
+            2024-2025
           </p>
         </motion.div>
 
         {/* Tagline */}
         <motion.div
-          className="flex items-center justify-center gap-4 mt-6"
+          className="flex items-center justify-center gap-4 mt-4"
           initial="hidden"
           animate="visible"
           variants={fadeIn}
         >
           <Sparkles className="w-6 h-6 text-[#007bff]" strokeWidth={1.5} />
-          <p className="text-xl font-medium tracking-wide text-gray-600 md:text-2xl">
+          <p className="text-xl font-medium tracking-wide text-gray-600 md:text-xl">
             Where Innovation Meets Excellence
           </p>
           <Sparkles className="w-6 h-6 text-[#007bff]" strokeWidth={1.5} />
@@ -109,7 +109,7 @@ export default function HeroSection() {
 
         {/* CTA Buttons */}
         <motion.div
-          className="flex flex-wrap items-center justify-center gap-5 mt-12"
+          className="flex flex-wrap items-center justify-center gap-5 mt-8"
           initial="hidden"
           animate="visible"
           variants={buttonContainer}
@@ -134,10 +134,18 @@ export default function HeroSection() {
 
       <style jsx global>{`
         @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
         }
         .animate-blob {
           animation: blob 7s infinite;

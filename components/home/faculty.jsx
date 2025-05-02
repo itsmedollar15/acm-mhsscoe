@@ -6,7 +6,7 @@ import { FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
 
 export default function FacultySection() {
   return (
-    <section className="relative py-12 mt-16 overflow-hidden">
+    <section className="relative py-8 mt-8 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div
@@ -26,7 +26,7 @@ export default function FacultySection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto mb-12 text-center"
+          className="max-w-3xl mx-auto mb-8 text-center"
         >
           <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
             <span className="block text-[#007bff]">Meet Our Faculty</span>

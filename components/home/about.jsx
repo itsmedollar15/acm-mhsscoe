@@ -51,7 +51,7 @@ export default function AboutSection() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-16 mt-16 overflow-hidden"
+      className="relative py-8 overflow-hidden" // Removed mt-8 to reduce gap
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-5">
@@ -66,14 +66,14 @@ export default function AboutSection() {
       </div>
 
       <div className="container relative z-10 px-4 mx-auto max-w-7xl">
-        <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
+        <div className="grid items-center grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Left Side - Content */}
           <motion.div
             className="max-w-xl mx-auto lg:mx-0"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }} // Reduced from 0.8 to 0.6 for snappier animations
           >
             <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
               <span className="block text-[#007bff]">About ACM MHSSCOE</span>
@@ -89,7 +89,7 @@ export default function AboutSection() {
             </p>
 
             {/* Counters with Lucide Icons */}
-            <div className="grid grid-cols-2 gap-6 mt-8">
+            <div className="grid grid-cols-2 gap-4 mt-6">
               {counters.map((counter, i) => (
                 <motion.div
                   key={counter.label}
@@ -117,8 +117,8 @@ export default function AboutSection() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-8"
+              transition={{ duration: 0.5, delay: 0.3 }} // Reduced delay from 0.4 to 0.3
+              className="mt-6" // Reduced from mt-8
             >
               <Link href="/teams">
                 <button className="flex items-center gap-2 px-6 py-3 text-base font-bold text-white transition-all bg-[#007bff] rounded-xl shadow-lg hover:bg-blue-600 hover:shadow-xl hover:scale-105 focus:ring-2 focus:ring-blue-500/50">
@@ -139,7 +139,7 @@ export default function AboutSection() {
             <div className="relative aspect-[4/3] w-full">
               {/* Main Image */}
               <motion.div
-                className="absolute z-10 overflow-hidden rounded-2xl w-[85%] h-[85%] top-0 right-0 shadow-xl"
+                className="absolute z-10 overflow-hidden rounded-2xl w-[85%] h-[85%] top-0 right-0 shadow-md" // Changed from shadow-xl to shadow-md
                 initial={{ x: 100, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true }}
@@ -156,7 +156,7 @@ export default function AboutSection() {
 
               {/* Overlapping Image */}
               <motion.div
-                className="absolute z-20 overflow-hidden rounded-2xl w-[65%] h-[65%] bottom-0 left-0 shadow-2xl"
+                className="absolute z-20 overflow-hidden rounded-2xl w-[65%] h-[65%] bottom-0 left-0 shadow-lg" // Changed from shadow-2xl to shadow-lg
                 initial={{ x: -100, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true }}
@@ -175,16 +175,16 @@ export default function AboutSection() {
                 />
               </motion.div>
 
-              {/* Decorative Elements */}
+              {/* Decorative Elements - Reduced blur */}
               <motion.div
-                className="absolute z-0 w-40 h-40 rounded-full bg-blue-100/50 -top-6 -right-6 blur-2xl"
+                className="absolute z-0 w-40 h-40 rounded-full bg-blue-100/40 -top-6 -right-6 blur-xl" // Reduced opacity and blur
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.6 }}
               />
               <motion.div
-                className="absolute z-0 w-40 h-40 rounded-full bg-indigo-100/50 -bottom-6 -left-6 blur-2xl"
+                className="absolute z-0 w-40 h-40 rounded-full bg-indigo-100/40 -bottom-6 -left-6 blur-xl" // Reduced opacity and blur
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}

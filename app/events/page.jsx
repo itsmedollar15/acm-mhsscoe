@@ -5,6 +5,7 @@ import { getAllEvents } from "@/actions/events";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Calendar } from "lucide-react";
+import Image from "next/image";
 
 const EventsPage = () => {
   const [events, setEvents] = useState([]);
@@ -15,9 +16,9 @@ const EventsPage = () => {
       try {
         const data = await getAllEvents();
         setEvents(data.reverse());
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching events:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -25,13 +26,7 @@ const EventsPage = () => {
     fetchEvents();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center w-full h-screen">
-        <div className="w-16 h-16 border-4 border-t-4 border-blue-600 rounded-full animate-spin"></div>
-      </div>
-    );
-  }
+  if (loading) return null; // Remove loading spinner
 
   return (
     <>
@@ -47,21 +42,21 @@ const EventsPage = () => {
         </div>
 
         {/* Events Grid */}
-        <div className="container grid max-w-7xl grid-cols-1 gap-8 mx-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+        <div className="container grid max-w-7xl grid-cols-1 gap-x-8 gap-y-12 mx-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
           {events.map((eventDetails, index) => (
             <motion.div
               key={`event_page_event_item_${index}`}
               whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               transition={{
-                duration: 0.6,
+                duration: 0.1, // Reduced from 0.2 to 0.1
                 ease: "easeOut",
-                delay: index * 0.2,
+                delay: index * 0.1, // Reduced from 0.1 to 0.05
               }}
-              viewport={{ amount: 0.2 }}
+              viewport={{ amount: 0.1 }} // Reduced from 0.2 to 0.1 for earlier trigger
             >
               <Link href={`/events/${eventDetails._id}`}>
-                <div className="relative overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-1">
+                <div className="relative overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 h-full">
                   {/* Image Container */}
                   <div className="relative w-full overflow-hidden bg-gray-100">
                     {/* Date Badge */}
@@ -78,12 +73,16 @@ const EventsPage = () => {
                     </div>
 
                     {/* Main Image */}
-                    <div className="relative flex items-center justify-center w-full min-h-[300px] p-4">
-                      <img
+                    <div className="relative w-full h-[300px] p-4">
+                      <Image
                         src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${eventDetails.poster}`}
                         alt={eventDetails.title}
-                        className="object-contain w-auto h-auto max-w-full max-h-[300px]"
-                        loading="lazy"
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        priority={index < 6}
+                        loading={index < 6 ? "eager" : "lazy"}
+                        quality={60}
                       />
                     </div>
                   </div>

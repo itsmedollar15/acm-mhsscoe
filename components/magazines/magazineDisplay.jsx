@@ -4,7 +4,7 @@ import MagazineCard from "@/components/magazines/magazineCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "antd";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   StackedCarousel,
@@ -12,6 +12,25 @@ import {
 
 const MagazineDisplay = ({ magazines }) => {
   const imgStackRef = useRef();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Pre-calculate dimensions once on component mount
+  useEffect(() => {
+    // Mark component as loaded after a short delay
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100); // Keep a small delay for initial setup
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Optimize slideWidth calculation
+  const getSlideWidth = (parentWidth) => {
+    if (parentWidth <= 480) return parentWidth - 64;
+
+    const heightRatio = parentWidth / (window.innerHeight - 104) > 1;
+    return heightRatio ? (window.innerHeight - 244) / 1.414 : parentWidth - 250;
+  };
 
   return (
     <div className="w-full">
@@ -32,6 +51,8 @@ const MagazineDisplay = ({ magazines }) => {
             <ResponsiveContainer
               carouselRef={imgStackRef}
               render={(parentWidth, carouselRef) => {
+                const slideWidth = getSlideWidth(parentWidth);
+
                 return (
                   <StackedCarousel
                     ref={carouselRef}
@@ -39,12 +60,17 @@ const MagazineDisplay = ({ magazines }) => {
                       return (
                         <div
                           key={`magazines_page_thumbnail_${dataIndex}`}
-                          className="my-10 w-full aspect-[1/1.414] transform transition-all duration-500 hover:scale-[1.02]"
-                          data-aos="zoom-in"
+                          className={`my-10 w-full aspect-[1/1.414] transform transition-all duration-300 hover:scale-[1.02] ${
+                            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4' // Added translate-y
+                          }`}
+                          style={{
+                            willChange: 'transform, opacity', // Updated willChange
+                            transition: 'opacity 300ms ease-in, transform 300ms ease-out' // Kept transition
+                          }}
                         >
                           <Link href={`/magazines/${magazines[dataIndex]._id}`}>
                             <div className="relative group">
-                              <div className="absolute transition duration-500 opacity-25 -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl blur group-hover:opacity-50"></div>
+                              <div className="absolute transition duration-300 opacity-25 -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl blur group-hover:opacity-50"></div>
                               <div className="relative">
                                 <MagazineCard {...magazines[dataIndex]} />
                               </div>
@@ -54,17 +80,11 @@ const MagazineDisplay = ({ magazines }) => {
                       );
                     }}
                     data={magazines}
-                    slideWidth={
-                      parentWidth > 480
-                        ? parentWidth / (window.innerHeight - 104) > 1
-                          ? (window.innerHeight - 244) / 1.414
-                          : parentWidth - 250
-                        : parentWidth - 64
-                    }
+                    slideWidth={slideWidth}
                     carouselWidth={parentWidth}
                     maxVisibleSlide={5}
                     disableSwipe
-                    transitionTime={450}
+                    transitionTime={300}
                   />
                 );
               }}

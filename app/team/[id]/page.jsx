@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import { Skeleton } from "antd";
 import { Mail, Hash, Award, Calendar } from "lucide-react";
+import Image from "next/image";
 
 const TeamMemberPage = () => {
   const { id } = useParams();
@@ -49,11 +50,14 @@ const TeamMemberPage = () => {
           <div className="relative px-6 pb-6">
             {/* Avatar */}
             <div className="absolute -top-16 left-6">
-              <div className="w-32 h-32 rounded-full border-4 border-white overflow-hidden bg-white shadow-lg">
-                <img
+              <div className="w-32 h-32 rounded-full border-4 border-white overflow-hidden bg-white shadow-lg relative">
+                <Image
                   src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${member?.photo}`}
                   alt={member?.name}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="128px"
+                  priority
                 />
               </div>
             </div>
@@ -133,4 +137,4 @@ const TeamMemberPage = () => {
   );
 };
 
-export default TeamMemberPage; 
+export default TeamMemberPage;

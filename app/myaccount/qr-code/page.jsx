@@ -4,7 +4,8 @@ import { QRCode } from "react-qrcode-logo";
 import { useSelector } from "react-redux";
 import colors from "tailwindcss/colors";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Share2 } from "lucide-react";
+import { Button, message } from "antd";
 
 const MyProfileQrCodePage = () => {
   const { email } = useSelector((state) => state.auth);
@@ -17,19 +18,23 @@ const MyProfileQrCodePage = () => {
       );
   }, [email]);
 
+  const handleShare = async () => {
+    try {
+      await navigator.share({
+        title: 'My ACM Profile',
+        text: 'Check out my ACM profile!',
+        url: link
+      });
+    } catch (error) {
+      message.info('Sharing is not supported on this device');
+    }
+  };
+
   if (!link) return <></>;
 
   return (
-    <div className="min-h-[calc(100vh-64px)] bg-gradient-to-br from-blue-50 via-white to-indigo-50 mt-16">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{ 
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        backgroundSize: '30px 30px'
-      }}></div>
-
-      {/* Content */}
+    <div className="min-h-[calc(100vh-64px)]  mt-16">
       <div className="relative container mx-auto px-4 py-8">
-        {/* Back Button */}
         <Link 
           href="/myaccount"
           className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-sm font-medium text-gray-600 transition-colors rounded-lg hover:text-blue-600 hover:bg-blue-50"
@@ -38,56 +43,64 @@ const MyProfileQrCodePage = () => {
           Back to Account
         </Link>
 
-        {/* Main Content */}
-        <div className="max-w-lg mx-auto">
-          <div className="text-center mb-8">
+        <div className="max-w-md mx-auto">
+          <div className="text-center mb-6">
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Your Profile QR Code</h1>
-            <p className="text-gray-600">Share your profile by showing this QR code to others</p>
+            <p className="text-sm text-gray-600">Scan to view profile</p>
           </div>
 
-          {/* QR Code Card */}
-      <Link href={link} target="_blank">
-            <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 border border-gray-200/50">
-              {/* QR Code */}
-              <div className="flex justify-center">
-          <div className="hidden sm:block">
-            <QRCode
-                    size={360}
-              value={link}
-              qrStyle="dots"
-                    eyeColor={colors.blue[600]}
-              bgColor="transparent"
-                    fgColor={colors.blue[600]}
-              eyeRadius={45}
-            />
-          </div>
-          <div className="sm:hidden">
-            <QRCode
-                    size={220}
-              value={link}
-              qrStyle="dots"
-                    eyeColor={colors.blue[600]}
-              bgColor="transparent"
-                    fgColor={colors.blue[600]}
-              eyeRadius={45}
-            />
-          </div>
+          <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+            <div className="flex justify-center mb-4">
+              <div className="hidden sm:block cursor-pointer" onClick={() => window.location.href = link}>
+                <QRCode
+                  size={260}  // Increased size
+                  value={link}
+                  qrStyle="dots"
+                  eyeColor={colors.blue[600]}
+                  bgColor="transparent"
+                  fgColor={colors.blue[600]}
+                  eyeRadius={8}
+                />
               </div>
-
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center bg-blue-600/0 rounded-2xl transition-all duration-300 group-hover:bg-blue-600/5">
-                <span className="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-lg text-sm font-medium text-blue-600 opacity-0 transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                  View Profile
-                </span>
+              <div className="sm:hidden cursor-pointer" onClick={() => window.location.href = link}>
+                <QRCode
+                  size={200}  // Increased size
+                  value={link}
+                  qrStyle="dots"
+                  eyeColor={colors.blue[600]}
+                  bgColor="transparent"
+                  fgColor={colors.blue[600]}
+                  eyeRadius={8}
+                />
               </div>
             </div>
-      </Link>
 
-          {/* Instructions */}
-          <div className="mt-8 p-4 bg-blue-50 rounded-xl">
-            <p className="text-sm text-blue-600 text-center">
-              Click on the QR code to open your profile in a new tab
-            </p>
+            <Button 
+              type="primary"
+              icon={<Share2 className="w-4 h-4" />}
+              onClick={handleShare}
+              className="w-full flex items-center justify-center gap-2 !bg-blue-600 !border-blue-600 hover:!bg-blue-600 hover:!border-blue-600"
+            >
+              Share Profile Link
+            </Button>
+          </div>
+
+          <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
+            <h3 className="text-sm font-medium text-blue-900 mb-2">How to use</h3>
+            <ul className="text-sm space-y-1.5 text-blue-700">
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                <span>Open camera and point at QR code</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                <span>Tap the notification</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                <span>View profile in browser</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

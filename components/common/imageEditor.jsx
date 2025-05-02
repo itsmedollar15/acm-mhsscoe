@@ -109,30 +109,42 @@ const ImageEditor = ({ originalImageUrl, onSaveImage, closeEditor }) => {
           <Empty className="my-10" description="No Image Selected" />
         )}
         <div className="my-5 flex gap-5 justify-center items-center">
-          <Button
-            onClick={() => pick()}
-            icon={<SwapOutlined />}
-            type="primary"
-            size="middle"
-          />
-          <Button
-            onClick={() => rotate("left")}
-            icon={<RotateLeftOutlined />}
-            type="primary"
-            size="middle"
-          />
-          <Button
-            onClick={() => rotate("right")}
-            icon={<RotateRightOutlined />}
-            type="primary"
-            size="middle"
-          />
-          <Button
-            onClick={() => reset()}
-            icon={<CloseOutlined />}
-            type="primary"
-            size="middle"
-          />
+          <div className="flex flex-col items-center">
+            <Button
+              onClick={() => pick()}
+              icon={<SwapOutlined />}
+              type="primary"
+              size="middle"
+            />
+            <span className="text-xs mt-1">Update Image</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <Button
+              onClick={() => rotate("left")}
+              icon={<RotateLeftOutlined />}
+              type="primary"
+              size="middle"
+            />
+            <span className="text-xs mt-1">Rotate Left</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <Button
+              onClick={() => rotate("right")}
+              icon={<RotateRightOutlined />}
+              type="primary"
+              size="middle"
+            />
+            <span className="text-xs mt-1">Rotate Right</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <Button
+              onClick={() => reset()}
+              icon={<CloseOutlined />}
+              type="primary"
+              size="middle"
+            />
+            <span className="text-xs mt-1">Reset</span>
+          </div>
         </div>
       </Modal>
     </>

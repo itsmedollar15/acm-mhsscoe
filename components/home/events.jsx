@@ -26,7 +26,7 @@ const HomeEventsSection = () => {
   if (events.length === 0) return null;
 
   return (
-    <section className="relative min-h-screen py-16 mt-16 overflow-hidden">
+    <section className="relative min-h-screen py-12 mt-8 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div
@@ -46,7 +46,7 @@ const HomeEventsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto mb-12 text-center"
+          className="max-w-3xl mx-auto mb-8 text-center" // Reduced mb-12 to mb-8
         >
           <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
             <span className="block text-[#007bff]">Recent Events</span>
@@ -58,7 +58,7 @@ const HomeEventsSection = () => {
         </motion.div>
 
         {/* Events Grid */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {events.map((event, index) => (
             <motion.div
               key={event._id}
@@ -140,7 +140,7 @@ const HomeEventsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-12 text-center"
+          className="mt-8 text-center" // Reduced from mt-12
         >
           <Link href="/events">
             <button className="inline-flex items-center gap-2 px-8 py-3 text-base font-bold text-white transition-all bg-[#007bff] rounded-xl shadow-lg hover:bg-blue-600 hover:shadow-xl hover:scale-105 focus:ring-2 focus:ring-blue-500/50">

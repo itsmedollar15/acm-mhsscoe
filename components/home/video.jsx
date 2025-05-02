@@ -27,6 +27,10 @@ export default function VideoSection() {
   const videoRef = useRef(null);
 
   const goBack = () => {
+    if (videoRef.current) {
+      videoRef.current.pause(); // Pause current video
+      setIsPlaying(false);
+    }
     setFade(true);
     setTimeout(() => {
       setCurrentIndex((prev) =>
@@ -37,6 +41,10 @@ export default function VideoSection() {
   };
 
   const goForward = () => {
+    if (videoRef.current) {
+      videoRef.current.pause(); // Pause current video
+      setIsPlaying(false);
+    }
     setFade(true);
     setTimeout(() => {
       setCurrentIndex((prev) =>
@@ -48,14 +56,39 @@ export default function VideoSection() {
 
   const togglePlay = () => {
     if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
+      try {
+        if (isPlaying) {
+          videoRef.current.pause();
+        } else {
+          const playPromise = videoRef.current.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                setIsPlaying(true);
+              })
+              .catch(error => {
+                console.error("Playback failed:", error);
+                setIsPlaying(false);
+              });
+          }
+        }
+        if (isPlaying) {
+          setIsPlaying(false);
+        }
+      } catch (error) {
+        console.error("Video control error:", error);
+        setIsPlaying(false);
       }
-      setIsPlaying(!isPlaying);
     }
   };
+
+  // Reset video when changing index
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0; // Reset video to start
+      setIsPlaying(false); // Ensure play state is reset
+    }
+  }, [currentIndex]);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -65,11 +98,23 @@ export default function VideoSection() {
         setIsPlaying(false);
         goForward();
       });
+
+      // Cleanup
+      return () => {
+        if (videoRef.current) {
+          videoRef.current.removeEventListener("play", () => setIsPlaying(true));
+          videoRef.current.removeEventListener("pause", () => setIsPlaying(false));
+          videoRef.current.removeEventListener("ended", () => {
+            setIsPlaying(false);
+            goForward();
+          });
+        }
+      };
     }
   }, [currentIndex]);
 
   return (
-    <section className="relative py-16 mt-16 overflow-hidden">
+    <section className="relative py-8 mt-8 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div
@@ -89,7 +134,7 @@ export default function VideoSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto mb-12 text-center"
+          className="max-w-3xl mx-auto mb-8 text-center"
         >
           <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
             <span className="block text-[#007bff]">Event Videos</span>
@@ -106,7 +151,7 @@ export default function VideoSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="relative max-w-5xl mx-auto"
+          className="relative max-w-5xl mx-auto group"
         >
           <div className="relative overflow-hidden bg-gray-900 shadow-2xl aspect-video rounded-2xl">
             {/* Video */}
@@ -116,22 +161,18 @@ export default function VideoSection() {
                 fade ? "opacity-0" : "opacity-100"
               }`}
               src={VIDEO_FILES[currentIndex].src}
-              onClick={togglePlay}
               playsInline
             />
 
             {/* Video Controls Overlay */}
-            <div className="absolute inset-0 transition-opacity duration-300 opacity-0 hover:opacity-100">
-              {/* Dark Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-
+            <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black/30 opacity-0 group-hover:opacity-100">
               {/* Navigation Controls */}
-              <div className="absolute inset-0 flex items-center justify-between p-4">
+              <div className="absolute inset-x-0 top-1/2 flex items-center justify-between px-6 -translate-y-1/2">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={goBack}
-                  className="flex items-center justify-center w-12 h-12 text-white transition-all rounded-full bg-black/20 backdrop-blur-sm hover:bg-black/40"
+                  className="flex items-center justify-center w-12 h-12 text-white transition-all rounded-full bg-black/40 backdrop-blur-sm hover:bg-black/60"
                 >
                   <ChevronLeft size={24} />
                 </motion.button>
@@ -139,7 +180,7 @@ export default function VideoSection() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={goForward}
-                  className="flex items-center justify-center w-12 h-12 text-white transition-all rounded-full bg-black/20 backdrop-blur-sm hover:bg-black/40"
+                  className="flex items-center justify-center w-12 h-12 text-white transition-all rounded-full bg-black/40 backdrop-blur-sm hover:bg-black/60"
                 >
                   <ChevronRight size={24} />
                 </motion.button>
@@ -150,17 +191,17 @@ export default function VideoSection() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={togglePlay}
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-16 h-16 text-white bg-[#007bff]/80 backdrop-blur-sm rounded-full hover:bg-[#007bff] transition-all"
+                className="flex items-center justify-center w-20 h-20 text-white transition-all rounded-full bg-[#007bff] shadow-lg hover:bg-[#0056b3] hover:shadow-xl cursor-pointer"
               >
                 {isPlaying ? (
-                  <Pause size={32} />
+                  <Pause size={36} className="transform-none pointer-events-none" />
                 ) : (
-                  <Play size={32} className="ml-1" />
+                  <Play size={36} className="ml-1.5 transform-none pointer-events-none" />
                 )}
               </motion.button>
 
               {/* Video Title */}
-              <div className="absolute bottom-0 left-0 right-0 p-6">
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                 <h3 className="text-xl font-bold text-white">
                   {VIDEO_FILES[currentIndex].title}
                 </h3>
@@ -169,7 +210,7 @@ export default function VideoSection() {
           </div>
 
           {/* Video Navigation Dots */}
-          <div className="flex justify-center gap-2 mt-6">
+          <div className="flex justify-center gap-3 mt-6">
             {VIDEO_FILES.map((_, index) => (
               <button
                 key={index}
@@ -180,10 +221,10 @@ export default function VideoSection() {
                     setFade(false);
                   }, 500);
                 }}
-                className={`w-2 h-2 rounded-full transition-all ${
+                className={`h-2.5 rounded-full transition-all duration-300 ${
                   currentIndex === index
-                    ? "w-6 bg-[#007bff]"
-                    : "bg-gray-300 hover:bg-gray-400"
+                    ? "w-8 bg-[#007bff]"
+                    : "w-2.5 bg-gray-300 hover:bg-gray-400"
                 }`}
               />
             ))}
