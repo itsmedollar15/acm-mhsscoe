@@ -30,7 +30,7 @@ const EventsPage = () => {
 
   return (
     <>
-      <div className="w-full px-6 py-16 mt-8">
+      <div className="px-6 py-16 mt-8 w-full">
         {/* Section Heading */}
         <div className="mb-12 text-center">
           <h2 className="text-4xl font-extrabold text-blue-600 sm:text-5xl md:text-6xl relative inline-block pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-blue-200 after:rounded-full">
@@ -42,26 +42,26 @@ const EventsPage = () => {
         </div>
 
         {/* Events Grid */}
-        <div className="container grid max-w-7xl grid-cols-1 gap-x-8 gap-y-12 mx-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+        <div className="container grid grid-cols-1 gap-x-8 gap-y-12 mx-auto max-w-7xl sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
           {events.map((eventDetails, index) => (
             <motion.div
               key={`event_page_event_item_${index}`}
               whileInView={{ opacity: 1, y: 0 }}
               initial={{ opacity: 0, y: 20 }}
               transition={{
-                duration: 0.1, // Reduced from 0.2 to 0.1
+                duration: 0.1,
                 ease: "easeOut",
-                delay: index * 0.1, // Reduced from 0.1 to 0.05
+                delay: index * 0.05
               }}
-              viewport={{ amount: 0.1 }} // Reduced from 0.2 to 0.1 for earlier trigger
+              viewport={{ amount: 0.1, once: true }}
             >
               <Link href={`/events/${eventDetails._id}`}>
-                <div className="relative overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 h-full">
+                <div className="overflow-hidden relative h-full bg-white rounded-xl shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
                   {/* Image Container */}
-                  <div className="relative w-full overflow-hidden bg-gray-100">
+                  <div className="overflow-hidden relative w-full bg-gray-100">
                     {/* Date Badge */}
-                    <div className="absolute z-20 px-4 py-2 mt-6 rounded-full right-4 bg-white/90 backdrop-blur-sm">
-                      <div className="flex items-center gap-2">
+                    <div className="absolute right-4 z-20 px-4 py-2 mt-6 rounded-full backdrop-blur-sm bg-white/90">
+                      <div className="flex gap-2 items-center">
                         <Calendar className="w-4 h-4 text-blue-600" />
                         <span className="text-sm font-medium text-gray-800">
                           {new Date(eventDetails.startDate).toLocaleDateString("en-US", {

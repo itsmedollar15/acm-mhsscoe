@@ -2,7 +2,8 @@
 import Glassmorphism from "@/components/common/glassmorphism";
 import EventCard from "@/components/events/eventCard";
 import EventService from "@/services/event";
-import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
+import { Calendar } from "lucide-react"; // Added this import
 import { Button, Col, Empty, Input, Row, message as showMessage } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -29,32 +30,45 @@ const AdminEventsPage = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] pt-24 pb-12 px-4 bg-gray-50/50">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-[calc(100vh-64px)] pt-28 pb-12 px-4 ">
+      <div className="mx-auto max-w-7xl">
         {/* Header Section */}
-        <div className="bg-white rounded-2xl shadow-sm p-8 mb-6 hover:shadow-md transition-shadow">
-          <div className="flex flex-col sm:flex-row gap-5 items-center">
-            <div className="flex items-center gap-4 flex-grow">
-              <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
-                <SearchOutlined className="text-lg text-blue-500" />
-              </div>
+        <div className="p-8 mb-8 rounded-2xl border shadow-lg backdrop-blur-xl transition-all duration-300 bg-white/95 hover:shadow-xl border-white/20">
+          <div className="flex gap-6 items-center mb-8">
+            <div className="flex justify-center items-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl shadow-lg transition-all duration-300 transform hover:scale-105">
+              <Calendar className="w-8 h-8 text-white" />
+            </div>
+            <div>
+              <h1 className="mb-2 text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                Manage Events
+              </h1>
+              <p className="text-lg text-gray-600">
+                Found: <span className="font-semibold text-blue-600">{events.length}</span> Event{events.length !== 1 ? "s" : ""}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-5 items-stretch sm:flex-row">
+            <div className="flex-grow">
               <Input.Search
-                className="flex-grow max-w-xl"
                 size="large"
                 placeholder="Search events by title..."
                 onChange={({ target: { value: query } }) => setSearchQuery(query)}
+                className="w-full shadow-sm transition-all duration-300 hover:shadow"
               />
             </div>
-            <Link href="/admin/events/create">
-              <Button 
-                icon={<PlusOutlined />} 
-                size="large" 
-                type="primary"
-                className="min-w-[140px] shadow-sm"
-              >
-                Create Event
-              </Button>
-            </Link>
+            <div className="flex-shrink-0">
+              <Link href="/admin/events/create">
+                <Button 
+                  icon={<PlusOutlined />} 
+                  type="primary"
+                  size="large"
+                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 border-0 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-105"
+                >
+                  Create Event
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -62,13 +76,17 @@ const AdminEventsPage = () => {
         {events.filter(({ title }) =>
           title.toLowerCase().includes(searchQuery.toLowerCase())
         ).length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-10">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {events
               .filter(({ title }) =>
                 title.toLowerCase().includes(searchQuery.toLowerCase())
               )
+              .sort((a, b) => new Date(b.startDate) - new Date(a.startDate))  // Add this sort
               .map((eventDetails, index) => (
-                <div key={`admin_events_page_event_item_${index}`}>
+                <div 
+                  key={`admin_events_page_event_item_${index}`}
+                  className="transform hover:scale-[1.02] transition-all duration-300"
+                >
                   <EventCard
                     allowEditDelete
                     onDelete={deleteEvent}
@@ -78,22 +96,28 @@ const AdminEventsPage = () => {
               ))}
           </div>
         ) : (
-          <div className="bg-white rounded-2xl shadow-sm p-16 text-center">
+          <div className="p-16 text-center rounded-2xl border shadow-lg backdrop-blur-xl transition-all duration-300 bg-white/95 border-white/20 hover:shadow-xl">
             <Empty 
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={
-                <span className="text-gray-500 mt-4 block">
-                  No events found. Create your first event to get started.
-                </span>
+                <div className="space-y-3">
+                  <p className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                    No Events Found
+                  </p>
+                  <p className="text-gray-600">
+                    Get started by creating your first event
+                  </p>
+                </div>
               }
             >
               <Link href="/admin/events/create">
                 <Button 
-                  type="primary" 
+                  type="primary"
                   icon={<PlusOutlined />}
                   size="large"
-                  className="mt-4"
+                  className="px-8 mt-8 h-12 bg-gradient-to-r from-blue-500 to-blue-600 border-0 shadow-md transition-all hover:shadow-lg hover:scale-105"
                 >
-                  Create New Event
+                  Create First Event
                 </Button>
               </Link>
             </Empty>

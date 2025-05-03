@@ -43,10 +43,10 @@ const AdminUsersPage = ({ searchParams: { type } }) => {
 
   return (
     <div className="min-h-[calc(100vh-64px)] pt-24 pb-12 px-4 bg-gray-50/50">
-      <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-sm p-8 mb-6 hover:shadow-md transition-shadow">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 flex items-center justify-center">
+      <div className="mx-auto max-w-7xl">
+        <div className="p-8 mb-6 bg-white rounded-2xl shadow-sm transition-shadow hover:shadow-md">
+          <div className="flex gap-3 items-center mb-6">
+            <div className="flex justify-center items-center w-12 h-12 bg-gradient-to-br rounded-xl from-blue-500/10 to-purple-500/10">
               <UsergroupAddOutlined className="text-xl text-blue-500" />
             </div>
             <div>
@@ -55,7 +55,7 @@ const AdminUsersPage = ({ searchParams: { type } }) => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-5 items-center">
+          <div className="flex flex-col gap-5 items-center sm:flex-row">
             <div className="w-full sm:w-36">
               <Select
                 className="w-full"
@@ -72,7 +72,7 @@ const AdminUsersPage = ({ searchParams: { type } }) => {
                 }
               />
             </div>
-            <div className="w-full sm:w-fit ml-auto">
+            <div className="ml-auto w-full sm:w-fit">
               <Link href="/admin/users/create">
                 <Button 
                   icon={<PlusOutlined />} 
@@ -88,7 +88,7 @@ const AdminUsersPage = ({ searchParams: { type } }) => {
         </div>
 
         {users.length > 0 ? (
-          <div className="bg-white rounded-2xl shadow-sm p-8 hover:shadow-md transition-shadow">
+          <div className="p-8 bg-white rounded-2xl shadow-sm transition-shadow hover:shadow-md">
             <Row gutter={[32, 32]} justify="start">
               {users.map(({ _id, ...user }, index) => (
                 <Col
@@ -109,10 +109,10 @@ const AdminUsersPage = ({ searchParams: { type } }) => {
             </Row>
           </div>
         ) : (
-          <div className="bg-white rounded-2xl shadow-sm p-16 text-center">
+          <div className="p-16 text-center bg-white rounded-2xl shadow-sm">
             <Empty 
               description={
-                <span className="text-gray-500 mt-4 block">
+                <span className="block mt-4 text-gray-500">
                   No users found. Add your first user to get started.
                 </span>
               }

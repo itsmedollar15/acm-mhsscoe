@@ -21,7 +21,7 @@ const EventDetails = ({
   return (
     <Glassmorphism className="p-6 rounded-xl shadow-lg md:p-8">
       {/* Section Title */}
-      <div className="flex items-center gap-3 pb-5 mb-6 border-b border-gray-200">
+      <div className="flex gap-3 items-center pb-5 mb-6 border-b border-gray-200">
         <CalendarDays className="w-6 h-6 text-blue-600" />
         <h3 className="text-2xl font-bold text-blue-700">Event Details</h3>
       </div>
@@ -29,8 +29,8 @@ const EventDetails = ({
       {/* Event Details */}
       <div className="space-y-5">
         <div className="grid gap-5 md:grid-cols-2">
-          <div className="p-4 transition-all duration-200 rounded-lg bg-white/50 hover:bg-white/70">
-            <div className="flex items-center gap-3 mb-2">
+          <div className="p-4 rounded-lg transition-all duration-200 bg-white/50 hover:bg-white/70">
+            <div className="flex gap-3 items-center mb-2">
               <Clock className="w-5 h-5 text-blue-600" />
               <h4 className="font-semibold text-gray-700">Start Date</h4>
             </div>
@@ -42,8 +42,8 @@ const EventDetails = ({
           </p>
           </div>
 
-          <div className="p-4 transition-all duration-200 rounded-lg bg-white/50 hover:bg-white/70">
-            <div className="flex items-center gap-3 mb-2">
+          <div className="p-4 rounded-lg transition-all duration-200 bg-white/50 hover:bg-white/70">
+            <div className="flex gap-3 items-center mb-2">
               <Clock className="w-5 h-5 text-blue-600" />
               <h4 className="font-semibold text-gray-700">End Date</h4>
             </div>
@@ -55,8 +55,8 @@ const EventDetails = ({
           </p>
           </div>
 
-          <div className="p-4 transition-all duration-200 rounded-lg bg-white/50 hover:bg-white/70">
-            <div className="flex items-center gap-3 mb-2">
+          <div className="p-4 rounded-lg transition-all duration-200 bg-white/50 hover:bg-white/70">
+            <div className="flex gap-3 items-center mb-2">
               <CalendarDays className="w-5 h-5 text-blue-600" />
               <h4 className="font-semibold text-gray-700">Registration Deadline</h4>
             </div>
@@ -68,8 +68,8 @@ const EventDetails = ({
           </p>
           </div>
 
-          <div className="p-4 transition-all duration-200 rounded-lg bg-white/50 hover:bg-white/70">
-            <div className="flex items-center gap-3 mb-2">
+          <div className="p-4 rounded-lg transition-all duration-200 bg-white/50 hover:bg-white/70">
+            <div className="flex gap-3 items-center mb-2">
               <Coins className="w-5 h-5 text-blue-600" />
               <h4 className="font-semibold text-gray-700">Entry Fees</h4>
             </div>
@@ -87,7 +87,7 @@ const EventDetails = ({
               <Button
                 type="primary"
                 size="large"
-                className="flex items-center justify-center w-full gap-2 h-12 text-lg bg-blue-600 hover:bg-blue-700"
+                className="flex gap-2 justify-center items-center w-full h-12 text-lg bg-blue-600 hover:bg-blue-700"
               >
                 <LogIn className="w-5 h-5" />
                 Register Now

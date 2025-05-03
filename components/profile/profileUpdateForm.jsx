@@ -50,10 +50,16 @@ const UserProfileUpdateForm = ({ userDetails, updateUserDetails }) => {
   }, [userDetails]);
 
   const handleLinkChange = (index, value) => {
+    const links = form.getFieldValue("links") || [];
+    // Keep existing label if already set
+    const existingLabel = links[index]?.label;
+    if (existingLabel) return;
+
+    // Only set label for new links
     if (value.includes("linkedin.com")) {
-      form.setFieldValue(["links", index, "label"], "Linkedin");
+      form.setFieldValue(["links", index, "label"], "LinkedIn");
     } else if (value.includes("github.com")) {
-      form.setFieldValue(["links", index, "label"], "Github");
+      form.setFieldValue(["links", index, "label"], "GitHub");
     } else if (value.includes("x.com") || value.includes("twitter.com")) {
       form.setFieldValue(["links", index, "label"], "X");
     }
@@ -79,10 +85,7 @@ const UserProfileUpdateForm = ({ userDetails, updateUserDetails }) => {
       <div className="space-y-8">
         {/* Profile Picture Section */}
         <div className="flex flex-col items-center">
-          <Form.Item
-            className="!hidden !w-0 !h-0 !mb-0"
-            name="profilePicture"
-          >
+          <Form.Item className="!hidden !w-0 !h-0 !mb-0" name="profilePicture">
             <Input className="!hidden !w-0 !h-0" />
           </Form.Item>
           {isEditorOpen && (
@@ -92,7 +95,7 @@ const UserProfileUpdateForm = ({ userDetails, updateUserDetails }) => {
               onSaveImage={changePicture}
             />
           )}
-          <div className="relative w-32 h-32 mb-4 group cursor-pointer">
+          <div className="relative mb-4 w-32 h-32 cursor-pointer group">
             {pictureData.url ? (
               <div className="relative w-full h-full">
                 <img
@@ -100,7 +103,7 @@ const UserProfileUpdateForm = ({ userDetails, updateUserDetails }) => {
                   alt="Profile Picture"
                   className="object-cover w-full h-full rounded-full shadow-lg transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-white transition-all duration-300 bg-black/60 rounded-full opacity-0 group-hover:opacity-100">
+                <div className="flex absolute inset-0 flex-col gap-2 justify-center items-center text-white rounded-full opacity-0 transition-all duration-300 bg-black/60 group-hover:opacity-100">
                   <Button
                     type="primary"
                     size="small"
@@ -128,28 +131,43 @@ const UserProfileUpdateForm = ({ userDetails, updateUserDetails }) => {
                 </div>
               </div>
             ) : (
-              <div 
+              <div
                 onClick={() => setEditorOpen(true)}
-                className="flex flex-col items-center justify-center w-full h-full transition-all duration-300 border-2 border-dashed border-gray-300 rounded-full hover:border-primary hover:bg-gray-50 cursor-pointer group"
+                className="flex flex-col justify-center items-center w-full h-full rounded-full border-2 border-gray-300 border-dashed transition-all duration-300 cursor-pointer hover:border-primary hover:bg-gray-50 group"
               >
-                <Camera className="w-8 h-8 text-gray-400 mb-2 transition-colors group-hover:text-primary" />
-                <span className="text-sm font-medium text-gray-500 group-hover:text-primary">Click to Upload</span>
-                <span className="text-xs text-gray-400 mt-1">or drag and drop</span>
+                <Camera className="mb-2 w-8 h-8 text-gray-400 transition-colors group-hover:text-primary" />
+                <span className="text-sm font-medium text-gray-500 group-hover:text-primary">
+                  Click to Upload
+                </span>
+                <span className="mt-1 text-xs text-gray-400">
+                  or drag and drop
+                </span>
               </div>
             )}
           </div>
-          <div className="text-center space-y-1">
+          <div className="space-y-1 text-center">
             <p className="text-sm font-medium text-gray-700">Profile Picture</p>
-            <p className="text-xs text-gray-500">Upload a professional photo for your profile</p>
-            <p className="text-xs text-gray-400">Recommended: Square image, max 1MB</p>
+            <p className="text-xs text-gray-500">
+              Upload a professional photo for your profile
+            </p>
+            <p className="text-xs text-gray-400">
+              Recommended: Square image, max 1MB
+            </p>
           </div>
         </div>
 
         {/* Personal Information Section */}
         <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Form.Item name="name" label="Full Name" rules={[{ required: true }]}>
-              <Input className="rounded-lg" placeholder="Enter your full name" />
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <Form.Item
+              name="name"
+              label="Full Name"
+              rules={[{ required: true }]}
+            >
+              <Input
+                className="rounded-lg"
+                placeholder="Enter your full name"
+              />
             </Form.Item>
             <Form.Item
               name="email"
@@ -167,9 +185,9 @@ const UserProfileUpdateForm = ({ userDetails, updateUserDetails }) => {
                 },
               ]}
             >
-              <Input 
-                disabled={userDetails ? true : false} 
-                className="rounded-lg" 
+              <Input
+                disabled={userDetails ? true : false}
+                className="rounded-lg"
                 placeholder="Enter your email"
               />
             </Form.Item>
@@ -185,7 +203,7 @@ const UserProfileUpdateForm = ({ userDetails, updateUserDetails }) => {
             </Form.Item>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             <Form.Item
               name="rollno"
               label="Roll Number"
@@ -198,88 +216,86 @@ const UserProfileUpdateForm = ({ userDetails, updateUserDetails }) => {
               label="Branch"
               rules={[{ required: true }]}
             >
-              <Select options={BRANCHES} className="rounded-lg" placeholder="Select branch" />
+              <Select
+                options={BRANCHES}
+                className="rounded-lg"
+                placeholder="Select branch"
+              />
             </Form.Item>
-            <Form.Item 
-              name="year" 
-              label="Year" 
-              rules={[{ required: true }]}
-            >
-              <Select options={YEARS} className="rounded-lg" placeholder="Select year" />
+            <Form.Item name="year" label="Year" rules={[{ required: true }]}>
+              <Select
+                options={YEARS}
+                className="rounded-lg"
+                placeholder="Select year"
+              />
             </Form.Item>
           </div>
         </div>
 
         {/* Social Links Section */}
-        {userDetails?.membershipId && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900">Social Links</h3>
-              <Button
-                type="dashed"
-                icon={<Plus className="w-4 h-4" />}
-                onClick={() => form.getFieldValue('links')?.length === 0 && form.getFieldValue('links')?.push({})}
-                className="!border-primary !text-primary hover:!bg-primary/10"
-              >
-                Add Link
-              </Button>
-            </div>
-
-            <Form.List name="links">
-              {(fields, { add, remove }) => (
-                <div className="space-y-4">
-                  {fields.map(({ key, ...field }) => (
-                    <div
-                      key={key}
-                      className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg"
-                    >
-                      <div className="flex-1 space-y-4">
-                        <Form.Item
-                          {...field}
-                          label="Link Type"
-                          name={[field.name, "label"]}
-                          rules={[{ required: true }]}
-                          className="!mb-0"
-                        >
-                          <Input className="rounded-lg" placeholder="e.g., GitHub" />
-                        </Form.Item>
-                        <Form.Item
-                          {...field}
-                          label="URL"
-                          name={[field.name, "url"]}
-                          rules={[{ required: true }]}
-                          className="!mb-0"
-                        >
-                          <Input
-                            onChange={({ target: { value } }) =>
-                              handleLinkChange(field.name, value)
-                            }
-                            className="rounded-lg"
-                            placeholder="https://"
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium text-gray-900">Social Links</h3>
+          <Form.List name="links">
+            {(fields, { add, remove }) => (
+              <div className="space-y-4">
+                {fields.map(({ key, name, ...restField }, index) => (
+                  <div key={key} className="relative group">
+                    <div className="p-4 bg-white rounded-xl border border-gray-100 shadow-sm transition-all hover:border-gray-200">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:gap-4 sm:items-start">
+                        <div className="flex-1">
+                          <label className="block mb-1 text-sm font-medium text-gray-500">Link Label</label>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "label"]}
+                            className="mb-0"
+                          >
+                            <Input
+                              placeholder="e.g. LinkedIn, GitHub"
+                              className="rounded-lg"
+                            />
+                          </Form.Item>
+                        </div>
+                        <div className="flex-[2]">
+                          <label className="block mb-1 text-sm font-medium text-gray-500">URL</label>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "url"]}
+                            className="mb-0"
+                          >
+                            <Input
+                              placeholder="https://..."
+                              onChange={({ target: { value } }) =>
+                                handleLinkChange(index, value)
+                              }
+                              className="rounded-lg"
+                            />
+                          </Form.Item>
+                        </div>
+                        <div className="flex items-start sm:items-center sm:pt-6">
+                          <Button
+                            type="text"
+                            className="!text-gray-400 hover:!text-red-500 hover:!bg-red-50 transition-colors rounded-lg w-10 h-10 flex items-center justify-center"
+                            icon={<Trash2 className="w-5 h-5" />}
+                            onClick={() => remove(name)}
                           />
-                        </Form.Item>
-                      </div>
-                      <div className="flex gap-2 pt-6">
-                        <Button
-                          type="text"
-                          icon={<Trash2 className="w-4 h-4 text-red-500" />}
-                          onClick={() => remove(field.name)}
-                          className="hover:!bg-red-50"
-                        />
-                        <Button
-                          type="text"
-                          icon={<Plus className="w-4 h-4 text-primary" />}
-                          onClick={() => add(null, field.name + 1)}
-                          className="hover:!bg-primary/10"
-                        />
+                        </div>
                       </div>
                     </div>
-                  ))}
-                </div>
-              )}
-            </Form.List>
-          </div>
-        )}
+                  </div>
+                ))}
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  block
+                  icon={<Plus className="w-4 h-4" />}
+                  className="hover:!border-primary hover:!text-primary"
+                >
+                  Add Social Link
+                </Button>
+              </div>
+            )}
+          </Form.List>
+        </div>
 
         {/* Submit Button */}
         <div className="flex justify-end pt-6 border-t border-gray-100">

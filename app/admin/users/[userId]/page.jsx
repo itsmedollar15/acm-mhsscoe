@@ -64,9 +64,9 @@ const AdminUserDetailsPage = ({ params: { userId } }) => {
   }, [userId]);
 
   return (
-    <div className="h-full flex flex-col gap-5 mb-10">
-      <Glassmorphism className="flex flex-col sm:flex-row items-center gap-5 p-5">
-        <div className="w-full sm:w-fit flex-grow">
+    <div className="flex flex-col gap-5 mb-10 h-full">
+      <Glassmorphism className="flex flex-col gap-5 items-center p-5 sm:flex-row">
+        <div className="flex-grow w-full sm:w-fit">
           <Button
             className="w-full sm:w-fit"
             type="primary"
@@ -76,7 +76,7 @@ const AdminUserDetailsPage = ({ params: { userId } }) => {
             Back
           </Button>
         </div>
-        <div className="w-full sm:w-fit  flex justify-center items-center gap-3">
+        <div className="flex gap-3 justify-center items-center w-full sm:w-fit">
           <p className="text-lg">Role:</p>
           <Select
             className="flex-grow sm:w-40"

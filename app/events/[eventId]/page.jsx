@@ -15,7 +15,7 @@ const EventPage = async ({ params: { eventId } }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen">
       <div className="container px-4 pt-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
           {/* Left Column - Header and Blog */}

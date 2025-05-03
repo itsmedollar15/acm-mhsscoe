@@ -36,7 +36,7 @@ const MagazineDisplay = ({ magazines }) => {
     <div className="w-full">
       {/* Our Magazines Section */}
       <div className="mt-10 text-center">
-        <h2 className="text-3xl mt-16 font-extrabold text-blue-600 sm:text-4xl md:text-5xl relative inline-block pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-blue-200 after:rounded-full">
+        <h2 className="text-4xl mt-14 font-extrabold text-blue-600 sm:text-5xl md:text-6xl relative inline-block pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-blue-200 after:rounded-full">
           Our Magazines
         </h2>
         <p className="mt-4 text-gray-600 text-md md:text-lg">
@@ -46,7 +46,7 @@ const MagazineDisplay = ({ magazines }) => {
 
       {/* Magazine Carousel */}
       <div className="relative flex justify-center items-center gap-10 h-[calc(100vh-64px-40px)]">
-        <div className="flex items-center justify-center w-full h-full">
+        <div className="flex justify-center items-center w-full h-full">
           {magazines.length > 0 && (
             <ResponsiveContainer
               carouselRef={imgStackRef}
@@ -70,7 +70,7 @@ const MagazineDisplay = ({ magazines }) => {
                         >
                           <Link href={`/magazines/${magazines[dataIndex]._id}`}>
                             <div className="relative group">
-                              <div className="absolute transition duration-300 opacity-25 -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl blur group-hover:opacity-50"></div>
+                              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl opacity-25 blur transition duration-300 group-hover:opacity-50"></div>
                               <div className="relative">
                                 <MagazineCard {...magazines[dataIndex]} />
                               </div>
