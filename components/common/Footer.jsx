@@ -31,7 +31,7 @@ const AppFooter = () => {
               <Link
                 href="https://www.instagram.com/acm_mhssce"
                 target="_blank"
-                className="p-2 text-gray-300 transition-all duration-200 rounded-full hover:text-pink-500 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500/40"
+                className="p-2 text-gray-300 rounded-full transition-all duration-200 hover:text-pink-500 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500/40"
               >
                 <Instagram size={20} />
               </Link>
@@ -88,8 +88,8 @@ const AppFooter = () => {
 
         {/* Copyright Section */}
         <div className="pt-8 mt-8 text-sm text-center text-gray-300 border-t border-gray-800/50">
-          <div className="max-w-2xl mx-auto">
-            © {new Date().getFullYear()} All rights reserved | Designed & Developed with by MHSSCOE ACM Webmasters
+          <div className="mx-auto max-w-2xl">
+            © {new Date().getFullYear()} All rights reserved | Designed & Developed by MHSSCOE ACM Webmasters
           </div>
         </div>
       </div>

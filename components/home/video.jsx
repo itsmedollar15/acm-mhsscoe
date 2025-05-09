@@ -4,20 +4,20 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 
-// Dummy video data
+// Video data
 const VIDEO_FILES = [
   {
-    src: "/videos/1.mp4",
-    title: "Welcome to ACM Student Chapter",
+    src: "/videos/ACM.mp4",
+    title: "ACM Webathon After Movie",
   },
-  {
-    src: "/videos/1.mp4",
-    title: "Our Latest Event Highlights",
-  },
-  {
-    src: "/videos/1.mp4",
-    title: "Student Activities and Workshops",
-  },
+  // {
+  //   src: "/videos/1.mp4",
+  //   title: "Our Latest Event Highlights",
+  // },
+  // {
+  //   src: "/videos/1.mp4",
+  //   title: "Student Activities and Workshops",
+  // },
 ];
 
 export default function VideoSection() {
@@ -28,7 +28,7 @@ export default function VideoSection() {
 
   const goBack = () => {
     if (videoRef.current) {
-      videoRef.current.pause(); // Pause current video
+      videoRef.current.pause();
       setIsPlaying(false);
     }
     setFade(true);
@@ -42,7 +42,7 @@ export default function VideoSection() {
 
   const goForward = () => {
     if (videoRef.current) {
-      videoRef.current.pause(); // Pause current video
+      videoRef.current.pause();
       setIsPlaying(false);
     }
     setFade(true);
@@ -59,6 +59,7 @@ export default function VideoSection() {
       try {
         if (isPlaying) {
           videoRef.current.pause();
+          setIsPlaying(false);
         } else {
           const playPromise = videoRef.current.play();
           if (playPromise !== undefined) {
@@ -66,14 +67,11 @@ export default function VideoSection() {
               .then(() => {
                 setIsPlaying(true);
               })
-              .catch(error => {
+              .catch((error) => {
                 console.error("Playback failed:", error);
                 setIsPlaying(false);
               });
           }
-        }
-        if (isPlaying) {
-          setIsPlaying(false);
         }
       } catch (error) {
         console.error("Video control error:", error);
@@ -85,36 +83,37 @@ export default function VideoSection() {
   // Reset video when changing index
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.currentTime = 0; // Reset video to start
-      setIsPlaying(false); // Ensure play state is reset
+      videoRef.current.currentTime = 0;
+      setIsPlaying(false);
     }
   }, [currentIndex]);
 
+  // Handle video events
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.addEventListener("play", () => setIsPlaying(true));
-      videoRef.current.addEventListener("pause", () => setIsPlaying(false));
-      videoRef.current.addEventListener("ended", () => {
-        setIsPlaying(false);
-        goForward();
-      });
+    const videoElement = videoRef.current;
 
-      // Cleanup
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    const handleEnded = () => {
+      setIsPlaying(false);
+      goForward();
+    };
+
+    if (videoElement) {
+      videoElement.addEventListener("play", handlePlay);
+      videoElement.addEventListener("pause", handlePause);
+      videoElement.addEventListener("ended", handleEnded);
+
       return () => {
-        if (videoRef.current) {
-          videoRef.current.removeEventListener("play", () => setIsPlaying(true));
-          videoRef.current.removeEventListener("pause", () => setIsPlaying(false));
-          videoRef.current.removeEventListener("ended", () => {
-            setIsPlaying(false);
-            goForward();
-          });
-        }
+        videoElement.removeEventListener("play", handlePlay);
+        videoElement.removeEventListener("pause", handlePause);
+        videoElement.removeEventListener("ended", handleEnded);
       };
     }
   }, [currentIndex]);
 
   return (
-    <section className="relative py-8 mt-8 overflow-hidden">
+    <section className="overflow-hidden relative py-8 mt-8">
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div
@@ -134,7 +133,7 @@ export default function VideoSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto mb-8 text-center"
+          className="mx-auto mb-8 max-w-3xl text-center"
         >
           <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
             <span className="block text-[#007bff]">Event Videos</span>
@@ -151,9 +150,9 @@ export default function VideoSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="relative max-w-5xl mx-auto group"
+          className="relative mx-auto max-w-5xl group"
         >
-          <div className="relative overflow-hidden bg-gray-900 shadow-2xl aspect-video rounded-2xl">
+          <div className="overflow-hidden relative bg-gray-900 rounded-2xl shadow-2xl aspect-video">
             {/* Video */}
             <motion.video
               ref={videoRef}
@@ -165,14 +164,14 @@ export default function VideoSection() {
             />
 
             {/* Video Controls Overlay */}
-            <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black/30 opacity-0 group-hover:opacity-100">
+            <div className="flex absolute inset-0 justify-center items-center opacity-0 transition-opacity duration-300 bg-black/30 group-hover:opacity-100">
               {/* Navigation Controls */}
-              <div className="absolute inset-x-0 top-1/2 flex items-center justify-between px-6 -translate-y-1/2">
+              <div className="flex absolute inset-x-0 top-1/2 justify-between items-center px-6 -translate-y-1/2 pointer-events-none">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={goBack}
-                  className="flex items-center justify-center w-12 h-12 text-white transition-all rounded-full bg-black/40 backdrop-blur-sm hover:bg-black/60"
+                  className="flex justify-center items-center w-12 h-12 text-white rounded-full backdrop-blur-sm transition-all pointer-events-auto bg-black/40 hover:bg-black/60"
                 >
                   <ChevronLeft size={24} />
                 </motion.button>
@@ -180,7 +179,7 @@ export default function VideoSection() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={goForward}
-                  className="flex items-center justify-center w-12 h-12 text-white transition-all rounded-full bg-black/40 backdrop-blur-sm hover:bg-black/60"
+                  className="flex justify-center items-center w-12 h-12 text-white rounded-full backdrop-blur-sm transition-all pointer-events-auto bg-black/40 hover:bg-black/60"
                 >
                   <ChevronRight size={24} />
                 </motion.button>
@@ -191,17 +190,17 @@ export default function VideoSection() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={togglePlay}
-                className="flex items-center justify-center w-20 h-20 text-white transition-all rounded-full bg-[#007bff] shadow-lg hover:bg-[#0056b3] hover:shadow-xl cursor-pointer"
+                className="flex items-center justify-center w-20 h-20 text-white transition-all rounded-full bg-[#007bff] shadow-lg hover:bg-[#0056b3] hover:shadow-xl cursor-pointer pointer-events-auto z-10"
               >
                 {isPlaying ? (
-                  <Pause size={36} className="transform-none pointer-events-none" />
+                  <Pause size={36} className="transform-none" />
                 ) : (
-                  <Play size={36} className="ml-1.5 transform-none pointer-events-none" />
+                  <Play size={36} className="ml-1.5 transform-none" />
                 )}
               </motion.button>
 
               {/* Video Title */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+              <div className="absolute right-0 bottom-0 left-0 p-6 bg-gradient-to-t to-transparent pointer-events-none select-none from-black/80 via-black/40">
                 <h3 className="text-xl font-bold text-white">
                   {VIDEO_FILES[currentIndex].title}
                 </h3>
@@ -210,7 +209,7 @@ export default function VideoSection() {
           </div>
 
           {/* Video Navigation Dots */}
-          <div className="flex justify-center gap-3 mt-6">
+          <div className="flex gap-3 justify-center mt-6">
             {VIDEO_FILES.map((_, index) => (
               <button
                 key={index}
