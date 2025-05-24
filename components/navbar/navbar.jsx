@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Grid, message as showMessage } from "antd";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { Menu, Home, Trophy, Users, BookOpen } from "lucide-react";
+import { Menu, Home, Trophy, Users, BookOpen, Image as ImageIcon } from "lucide-react";
 import NavbarDesktopAccount from "./desktopAccount";
 import NavbarMobileView from "./mobileView";
 import UserService from "@/services/user";
@@ -104,6 +104,17 @@ const AppNavbar = () => {
               >
                 <BookOpen size={18} />
                 <span>Magazines</span>
+              </Link>
+              <Link 
+                href="/gallery"
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all rounded-lg ${
+                  pathname === "/gallery" 
+                  ? "text-blue-600 bg-blue-50" 
+                  : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                }`}
+              >
+                <ImageIcon size={18} />
+                <span>Gallery</span>
               </Link>
           </div>
 

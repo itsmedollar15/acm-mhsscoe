@@ -26,16 +26,21 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{ 
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        backgroundSize: '30px 30px'
-      }}></div>
+    <div className="min-h-screen">
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0">
+        <div 
+          className="absolute inset-0 opacity-[0.02]" 
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230ea5e9' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '60px 60px'
+          }}
+        />
+      </div>
 
       <div className="relative flex items-center justify-center min-h-screen px-4 py-12">
-        <div className="w-full max-w-md">
-          <Glassmorphism className="p-8 border shadow-lg rounded-2xl backdrop-blur-xl bg-white/90 border-white/20">
+        <div className="w-full max-w-md space-y-8">
+          <Glassmorphism className="p-10 backdrop-blur-sm bg-white/90 border-white/20 shadow-2xl rounded-3xl">
             <Form
               form={form}
               layout="vertical"
@@ -43,79 +48,79 @@ const LoginPage = () => {
               requiredMark={false}
               onFinish={onFormSubmit}
             >
-              {/* Logo and Header */}
-              <div className="mb-8 text-center">
-                <div className="relative w-20 h-20 mx-auto mb-6">
+              {/* Enhanced Logo and Header */}
+              <div className="mb-10 space-y-4 text-center">
+                <div className="relative mx-auto w-24 h-24 transition-transform duration-300 transform hover:scale-105">
                   <Image
                     src="/logo.png"
                     alt="ACM Logo"
                     fill
-                    className="object-contain"
+                    className="object-contain drop-shadow-md"
                     priority
                   />
                 </div>
-                <h2 className="mb-2 text-2xl font-bold text-gray-900">
-                  Welcome Back
-                </h2>
-                <p className="text-sm text-gray-600">
-                  Sign in to your ACM Committee account
-                </p>
+                <div>
+                  <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+                    Welcome Back
+                  </h2>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Sign in to your ACM Committee account
+                  </p>
+                </div>
               </div>
 
-              {/* Email Input */}
-              <Form.Item
-                name="email"
-                label="Email Address"
-                rules={[{ required: true, message: "Please input your email!" }]}
-              >
-                <Input
-                  placeholder="College Email address (@mhssce.ac.in)"
-                  prefix={<Mail className="w-5 h-5 text-gray-400" />}
-                  size="large"
-                  className="transition-all border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 hover:border-blue-400"
-                />
-              </Form.Item>
+              {/* Enhanced Form Fields */}
+              <div className="space-y-6">
+                <Form.Item
+                  name="email"
+                  label={<span className="font-medium text-gray-700">Email Address</span>}
+                  rules={[{ required: true, message: "Please input your email!" }]}
+                >
+                  <Input
+                    placeholder="College Email address (@mhssce.ac.in)"
+                    prefix={<Mail className="w-5 h-5 text-gray-400" />}
+                    className="h-12 rounded-xl border-gray-200 shadow-sm transition-all focus:ring-2 focus:ring-blue-500 hover:border-blue-400"
+                  />
+                </Form.Item>
 
-              {/* Password Input */}
-              <Form.Item
-                name="password"
-                label="Password"
-                rules={[{ required: true, message: "Please input your password!" }]}
-              >
-                <Input.Password
-                  placeholder="Enter your password"
-                  prefix={<Lock className="w-5 h-5 text-gray-400" />}
-                  size="large"
-                  className="transition-all border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 hover:border-blue-400"
-                />
-              </Form.Item>
+                <Form.Item
+                  name="password"
+                  label={<span className="font-medium text-gray-700">Password</span>}
+                  rules={[{ required: true, message: "Please input your password!" }]}
+                >
+                  <Input.Password
+                    placeholder="Enter your password"
+                    prefix={<Lock className="w-5 h-5 text-gray-400" />}
+                    className="h-12 rounded-xl border-gray-200 shadow-sm transition-all focus:ring-2 focus:ring-blue-500 hover:border-blue-400"
+                  />
+                </Form.Item>
+              </div>
 
-              {/* Forgot Password Link */}
-              <div className="flex justify-end mb-4">
+              {/* Enhanced Action Links */}
+              <div className="flex justify-end mt-2 mb-6">
                 <Link
                   href="/resetPassword"
-                  className="text-sm font-medium text-blue-600 hover:text-blue-500"
+                  className="text-sm font-medium text-blue-600 transition-colors hover:text-blue-500"
                 >
                   Forgot Password?
                 </Link>
               </div>
 
-              {/* Submit Button */}
+              {/* Enhanced Buttons */}
               <Button
                 type="primary"
                 htmlType="submit"
                 block
-                className="h-12 mt-6 text-base font-medium text-white transition-all bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500"
+                className="h-12 text-base font-semibold text-white bg-blue-600 rounded-xl transition-all hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 Sign In
               </Button>
 
-              {/* Register Link */}
-              <p className="mt-6 text-sm text-center text-gray-600">
+              <p className="mt-8 text-sm text-center text-gray-600">
                 New to ACM Committee?{" "}
                 <Link
                   href="/register"
-                  className="font-medium text-blue-600 hover:text-blue-500"
+                  className="font-medium text-blue-600 transition-colors hover:text-blue-500"
                 >
                   Register Now
                 </Link>

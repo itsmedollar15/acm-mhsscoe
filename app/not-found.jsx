@@ -4,8 +4,8 @@ import Link from "next/link";
 
 const PageNotFound = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4">
-      <Glassmorphism className="flex flex-col items-center gap-4 p-6 text-center rounded-lg shadow-md bg-white/50 backdrop-blur-md">
+    <div className="flex flex-col justify-center items-center px-4 min-h-screen">
+      <Glassmorphism className="flex flex-col gap-4 items-center p-6 text-center rounded-lg shadow-md backdrop-blur-md bg-white/50">
         {/* 404 Image */}
         <img
           className="w-3/4 max-w-xs"
@@ -23,7 +23,7 @@ const PageNotFound = () => {
 
         {/* Go Back Button */}
         <Link href="/">
-          <button className="px-4 py-2 mt-3 text-sm font-medium text-white transition-transform transform bg-blue-600 rounded-md shadow hover:scale-105 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300">
+          <button className="px-4 py-2 mt-3 text-sm font-medium text-white bg-blue-600 rounded-md shadow transition-transform transform hover:scale-105 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300">
             Go Back Home
           </button>
         </Link>

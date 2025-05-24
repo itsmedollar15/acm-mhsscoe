@@ -51,7 +51,7 @@ export default function AboutSection() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-8 overflow-hidden" // Removed mt-8 to reduce gap
+      className="overflow-hidden relative py-8" // Removed mt-8 to reduce gap
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-5">
@@ -66,10 +66,10 @@ export default function AboutSection() {
       </div>
 
       <div className="container relative z-10 px-4 mx-auto max-w-7xl">
-        <div className="grid items-center grid-cols-1 gap-8 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 items-center lg:grid-cols-2">
           {/* Left Side - Content */}
           <motion.div
-            className="max-w-xl mx-auto lg:mx-0"
+            className="mx-auto max-w-xl lg:mx-0"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -96,9 +96,9 @@ export default function AboutSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.2 }}
-                  className="p-5 transition-all bg-blue-50 rounded-xl hover:bg-blue-100"
+                  className="p-5 bg-blue-50 rounded-xl transition-all hover:bg-blue-100"
                 >
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="flex gap-3 items-center mb-2">
                     <span className="p-2 bg-blue-100 rounded-lg text-[#007bff]">
                       {counter.icon}
                     </span>
@@ -139,7 +139,7 @@ export default function AboutSection() {
             <div className="relative aspect-[4/3] w-full">
               {/* Main Image */}
               <motion.div
-                className="absolute z-10 overflow-hidden rounded-2xl w-[85%] h-[85%] top-0 right-0 shadow-md" // Changed from shadow-xl to shadow-md
+                className="absolute z-10 overflow-hidden rounded-2xl w-[65%] h-[65%] top-[-20px] right-0 shadow-md"
                 initial={{ x: 100, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true }}
@@ -156,7 +156,7 @@ export default function AboutSection() {
 
               {/* Overlapping Image */}
               <motion.div
-                className="absolute z-20 overflow-hidden rounded-2xl w-[65%] h-[65%] bottom-0 left-0 shadow-lg" // Changed from shadow-2xl to shadow-lg
+                className="absolute z-20 overflow-hidden rounded-2xl w-[85%] h-[85%] bottom-[-20px] left-0 shadow-lg"
                 initial={{ x: -100, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true }}
@@ -177,14 +177,14 @@ export default function AboutSection() {
 
               {/* Decorative Elements - Reduced blur */}
               <motion.div
-                className="absolute z-0 w-40 h-40 rounded-full bg-blue-100/40 -top-6 -right-6 blur-xl" // Reduced opacity and blur
+                className="absolute -top-6 -right-6 z-0 w-40 h-40 rounded-full blur-xl bg-blue-100/40" // Reduced opacity and blur
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.6 }}
               />
               <motion.div
-                className="absolute z-0 w-40 h-40 rounded-full bg-indigo-100/40 -bottom-6 -left-6 blur-xl" // Reduced opacity and blur
+                className="absolute -bottom-6 -left-6 z-0 w-40 h-40 rounded-full blur-xl bg-indigo-100/40" // Reduced opacity and blur
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}

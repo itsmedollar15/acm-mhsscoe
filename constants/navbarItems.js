@@ -30,9 +30,10 @@ export const NAVBAR_LINKS = [
     key: "/magazines",
     icon: <BookOpen size={20} />,
     label: <Link href="/magazines">Magazines</Link>,
+    label: "Gallery",
+    href: "/gallery"
   },
 ];
-
 export const NAVBAR_AUTH_LINKS = [
   {
     key: "/myaccount",

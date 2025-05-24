@@ -6,7 +6,7 @@ import { FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
 
 export default function FacultySection() {
   return (
-    <section className="relative py-8 mt-8 overflow-hidden">
+    <section className="overflow-hidden relative py-8 mt-8">
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div
@@ -26,7 +26,7 @@ export default function FacultySection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto mb-8 text-center"
+          className="mx-auto mb-8 max-w-3xl text-center"
         >
           <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
             <span className="block text-[#007bff]">Meet Our Faculty</span>
@@ -39,7 +39,7 @@ export default function FacultySection() {
         </motion.div>
 
         {/* Faculty Grid */}
-        <div className="flex flex-wrap justify-center gap-6">
+        <div className="flex flex-wrap gap-6 justify-center">
           {FACULTY_INCHARGES.map((faculty, index) => (
             <motion.div
               key={index}
@@ -49,7 +49,7 @@ export default function FacultySection() {
               viewport={{ once: true }}
               className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] min-w-[280px] max-w-[320px]"
             >
-              <div className="relative overflow-hidden transition-all duration-300 bg-white shadow-sm group rounded-xl hover:shadow-lg hover:-translate-y-1">
+              <div className="overflow-hidden relative bg-white rounded-xl shadow-sm transition-all duration-300 group hover:shadow-lg hover:-translate-y-1">
                 {/* Faculty Image Container */}
                 <div className="relative pt-[100%] overflow-hidden">
                   {/* Background Blur */}
@@ -57,13 +57,13 @@ export default function FacultySection() {
                     <img
                       src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${faculty.photo}`}
                       alt={faculty.name}
-                      className="object-cover w-full h-full scale-110 blur-md opacity-30"
+                      className="object-cover w-full h-full opacity-30 blur-md scale-110"
                     />
                   </div>
 
                   {/* Main Image */}
-                  <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
-                    <div className="relative w-40 h-40 overflow-hidden border-4 border-white rounded-full shadow-lg">
+                  <div className="flex absolute inset-0 z-10 justify-center items-center p-4">
+                    <div className="overflow-hidden relative w-40 h-40 rounded-full border-4 border-white shadow-lg">
                       <img
                         src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${faculty.photo}`}
                         alt={faculty.name}
@@ -73,8 +73,8 @@ export default function FacultySection() {
                   </div>
 
                   {/* Social Links Overlay */}
-                  <div className="absolute inset-0 z-20 transition-all duration-300 opacity-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:opacity-100">
-                    <div className="absolute left-0 right-0 flex justify-center gap-3 transition-transform duration-300 translate-y-8 bottom-4 group-hover:translate-y-0">
+                  <div className="absolute inset-0 z-20 bg-gradient-to-t to-transparent opacity-0 transition-all duration-300 from-black/90 via-black/40 group-hover:opacity-100">
+                    <div className="flex absolute right-0 left-0 bottom-4 gap-3 justify-center transition-transform duration-300 translate-y-8 group-hover:translate-y-0">
                       {faculty.linkedin && (
                         <motion.a
                           whileHover={{ scale: 1.1 }}
