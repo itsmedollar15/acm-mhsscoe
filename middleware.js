@@ -4,100 +4,117 @@ import { ROLES } from "./constants/roles";
 import jwt from "jsonwebtoken";
 
 export async function middleware(req) {
-  // if (1 == 1) return NextResponse.next();
-
   let isLoggedIn = false;
   const token = req.cookies.get("token")?.value;
-  const { _id: userId } = token ? jwt.decode(token) : { _id: null };
-  isLoggedIn = userId ? true : false;
-
-  const { origin, pathname } = req.nextUrl;
-
-  if (pathname === "/not-found") return NextResponse.next();
-
-  if (isLoggedIn) {
-    if (
-      pathname === "/login" ||
-      pathname.includes("/register") ||
-      pathname.includes("/resetPassword")
-    ) {
-      return NextResponse.redirect(new URL("/myaccount", origin));
+  
+  // Add better token validation
+  if (!token) {
+    if (pathname.includes("/myaccount") || pathname.includes("/admin")) {
+      return NextResponse.redirect(new URL("/login", origin));
     }
+    return NextResponse.next();
+  }
 
-    if (pathname === "/myaccount") {
-      return NextResponse.redirect(
-        new URL("/myaccount/update-profile", origin)
-      );
-    }
+  try {
+    // Verify token first
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const { _id: userId } = decoded;
+    isLoggedIn = true;
 
-    if (pathname.includes("/admin")) {
-      let userRole;
-      try {
-        const { role } = await UserService.getUserRole(userId);
-        userRole = role;
-      } catch (error) {
-        return NextResponse.redirect(new URL("/not-found", origin));
+    const { origin, pathname } = req.nextUrl;
+
+    if (pathname === "/not-found") return NextResponse.next();
+
+    if (isLoggedIn) {
+      if (
+        pathname === "/login" ||
+        pathname.includes("/register") ||
+        pathname.includes("/resetPassword")
+      ) {
+        return NextResponse.redirect(new URL("/myaccount", origin));
       }
 
-      switch (pathname) {
-        case "/admin": {
-          if (
-            [
-              ROLES.SUPER_ADMIN,
-              ROLES.ADMIN,
-              ROLES.MANAGE_USERS,
-              ROLES.USER_PROFILE,
-            ].includes(userRole)
-          ) {
-            return NextResponse.redirect(new URL("/admin/users", origin));
+      if (pathname === "/myaccount") {
+        return NextResponse.redirect(
+          new URL("/myaccount/update-profile", origin)
+        );
+      }
+
+      if (pathname.includes("/admin")) {
+        try {
+          const { role } = await UserService.getUserRole(userId);
+          
+          // Add role validation
+          if (!role) {
+            console.error('No role found for user:', userId);
+            return NextResponse.redirect(new URL("/login", origin));
           }
-          if ([ROLES.MANAGE_EVENTS].includes(userRole)) {
-            return NextResponse.redirect(new URL("/admin/events", origin));
+
+          switch (pathname) {
+            case "/admin": {
+              if (
+                [
+                  ROLES.SUPER_ADMIN,
+                  ROLES.ADMIN,
+                  ROLES.MANAGE_USERS,
+                  ROLES.USER_PROFILE,
+                ].includes(role)
+              ) {
+                return NextResponse.redirect(new URL("/admin/users", origin));
+              }
+              if ([ROLES.MANAGE_EVENTS].includes(role)) {
+                return NextResponse.redirect(new URL("/admin/events", origin));
+              }
+              if ([ROLES.MANAGE_TEAMS].includes(role)) {
+                return NextResponse.redirect(new URL("/admin/teams", origin));
+              }
+              return NextResponse.redirect(new URL("/not-found", origin));
+            }
+
+            case "/admin/events": {
+              if (
+                ![ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.MANAGE_EVENTS].includes(
+                  userRole
+                )
+              )
+                return NextResponse.redirect(new URL("/not-found", origin));
+              break;
+            }
+
+            case "/admin/teams": {
+              if (
+                ![ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.MANAGE_TEAMS].includes(
+                  userRole
+                )
+              )
+                return NextResponse.redirect(new URL("/not-found", origin));
+              break;
+            }
+
+            case "/admin/users": {
+              if (
+                ![
+                  ROLES.SUPER_ADMIN,
+                  ROLES.ADMIN,
+                  ROLES.MANAGE_USERS,
+                  ROLES.USER_PROFILE,
+                ].includes(userRole)
+              )
+                return NextResponse.redirect(new URL("/not-found", origin));
+              break;
+            }
+
+            default:
+              break;
           }
-          if ([ROLES.MANAGE_TEAMS].includes(userRole)) {
-            return NextResponse.redirect(new URL("/admin/teams", origin));
-          }
-          return NextResponse.redirect(new URL("/not-found", origin));
+        } catch (error) {
+          console.error('Role verification error:', error);
+          return NextResponse.redirect(new URL("/login", origin));
         }
-
-        case "/admin/events": {
-          if (
-            ![ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.MANAGE_EVENTS].includes(
-              userRole
-            )
-          )
-            return NextResponse.redirect(new URL("/not-found", origin));
-          break;
-        }
-
-        case "/admin/teams": {
-          if (
-            ![ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.MANAGE_TEAMS].includes(
-              userRole
-            )
-          )
-            return NextResponse.redirect(new URL("/not-found", origin));
-          break;
-        }
-
-        case "/admin/users": {
-          if (
-            ![
-              ROLES.SUPER_ADMIN,
-              ROLES.ADMIN,
-              ROLES.MANAGE_USERS,
-              ROLES.USER_PROFILE,
-            ].includes(userRole)
-          )
-            return NextResponse.redirect(new URL("/not-found", origin));
-          break;
-        }
-
-        default:
-          break;
       }
     }
-  } else {
+  } catch (error) {
+    console.error('Token verification error:', error);
     if (pathname.includes("/myaccount") || pathname.includes("/admin")) {
       return NextResponse.redirect(new URL("/login", origin));
     }
