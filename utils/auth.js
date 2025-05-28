@@ -28,6 +28,8 @@ export const getFilteredLinksByRole = (links, role) => {
       label: link.label,
       icon: link.icon,
       onClick: link.onClick,
-      children: link.children ? getFilteredLinksByRole(link.children, role) : undefined,
+      children: link.children
+        ? getFilteredLinksByRole(link.children, role)
+        : undefined,
     }));
 };

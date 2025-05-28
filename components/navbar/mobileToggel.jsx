@@ -5,7 +5,7 @@ import React from "react";
 const NavbarMobileToggle = ({ openMobileNav, closeMobileNav, open }) => {
   return (
     <Button
-      className="transition-all duration-200 w-14 hover:bg-gray-200 focus:ring-2 focus:ring-gray-300"
+      className="w-14 transition-all duration-200 hover:bg-gray-200 focus:ring-2 focus:ring-gray-300"
       icon={
         open ? (
           <CloseOutlined style={{ verticalAlign: -3 }} />

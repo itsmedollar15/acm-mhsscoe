@@ -1,7 +1,12 @@
 export const commonInitialState = {
-    isLoading: false
-}
+  isLoading: false,
+};
 
 export const authInitialState = {
-    isLoggedIn: null
-}
+  isLoggedIn: null,
+  isAuthLoading: true,
+  profilePicture: undefined,
+  name: undefined,
+  email: undefined,
+  role: undefined,
+};

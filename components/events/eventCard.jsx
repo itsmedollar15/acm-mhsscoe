@@ -18,13 +18,21 @@ const EventCard = ({
     <div className="relative group">
       <div className="overflow-hidden relative bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-md transition-all duration-500 hover:shadow-xl">
         {/* Image Container */}
-        <div className={`relative ${allowEditDelete ? "aspect-[3/4]" : "aspect-[4/3]"}`}>
+        <div
+          className={`relative ${
+            allowEditDelete ? "aspect-[3/4]" : "aspect-[4/3]"
+          }`}
+        >
           {/* Background Pattern */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 to-purple-50/30" />
-          <div className="absolute inset-0" style={{ 
-            backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(0,0,0,0.05) 1px, transparent 0)',
-            backgroundSize: '20px 20px'
-          }} />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 2px 2px, rgba(0,0,0,0.05) 1px, transparent 0)",
+              backgroundSize: "20px 20px",
+            }}
+          />
 
           {/* Main Image */}
           <div className="flex relative z-10 justify-center items-center p-6 w-full h-full">
@@ -34,8 +42,8 @@ const EventCard = ({
                 alt={title}
                 fill
                 className="object-contain transition-transform duration-700 transform group-hover:scale-105"
-                style={{ 
-                  filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))'
+                style={{
+                  filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))",
                 }}
               />
             </div>
@@ -62,9 +70,7 @@ const EventCard = ({
           <h3 className="mb-2 text-xl font-bold text-gray-900 transition-colors duration-300 line-clamp-1 group-hover:text-blue-600">
             {title}
           </h3>
-          <p className="mb-4 text-gray-600 line-clamp-2">
-            {description}
-          </p>
+          <p className="mb-4 text-gray-600 line-clamp-2">{description}</p>
 
           {/* Admin Controls */}
           {allowEditDelete && (

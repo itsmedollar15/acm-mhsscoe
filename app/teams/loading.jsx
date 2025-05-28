@@ -17,12 +17,23 @@ export default function Loading() {
             {[1, 2, 3].map((section) => (
               <div key={section} className="space-y-8">
                 <Skeleton.Input active size="large" style={{ width: 200 }} />
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                   {[1, 2, 3, 4].map((card) => (
                     <div key={card} className="space-y-4">
-                      <Skeleton.Image active style={{ width: 192, height: 192 }} />
-                      <Skeleton.Input active size="small" style={{ width: 150 }} />
-                      <Skeleton.Input active size="small" style={{ width: 100 }} />
+                      <Skeleton.Image
+                        active
+                        style={{ width: 192, height: 192 }}
+                      />
+                      <Skeleton.Input
+                        active
+                        size="small"
+                        style={{ width: 150 }}
+                      />
+                      <Skeleton.Input
+                        active
+                        size="small"
+                        style={{ width: 100 }}
+                      />
                     </div>
                   ))}
                 </div>

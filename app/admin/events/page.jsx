@@ -33,9 +33,9 @@ const AdminEventsPage = () => {
     <div className="min-h-[calc(100vh-64px)] pt-28 pb-12 px-4 ">
       <div className="mx-auto max-w-7xl">
         {/* Header Section */}
-        <div className="p-8 mb-8 rounded-2xl border shadow-lg backdrop-blur-xl transition-all duration-300 bg-white/95 hover:shadow-xl border-white/20">
+        <div className="p-8 mb-8 bg-white rounded-2xl border-0 shadow-lg backdrop-blur-xl transition-all duration-300 hover:shadow-xl">
           <div className="flex gap-6 items-center mb-8">
-            <div className="flex justify-center items-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl shadow-lg transition-all duration-300 transform hover:scale-105">
+            <div className="flex justify-center items-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 hover:rotate-3">
               <Calendar className="w-8 h-8 text-white" />
             </div>
             <div>
@@ -43,7 +43,11 @@ const AdminEventsPage = () => {
                 Manage Events
               </h1>
               <p className="text-lg text-gray-600">
-                Found: <span className="font-semibold text-blue-600">{events.length}</span> Event{events.length !== 1 ? "s" : ""}
+                Found:{" "}
+                <span className="font-semibold text-blue-600">
+                  {events.length}
+                </span>{" "}
+                Event{events.length !== 1 ? "s" : ""}
               </p>
             </div>
           </div>
@@ -53,17 +57,19 @@ const AdminEventsPage = () => {
               <Input.Search
                 size="large"
                 placeholder="Search events by title..."
-                onChange={({ target: { value: query } }) => setSearchQuery(query)}
-                className="w-full shadow-sm transition-all duration-300 hover:shadow"
+                onChange={({ target: { value: query } }) =>
+                  setSearchQuery(query)
+                }
+                className="w-full shadow-sm transition-all duration-300 hover:shadow focus:shadow-md"
               />
             </div>
             <div className="flex-shrink-0">
               <Link href="/admin/events/create">
-                <Button 
-                  icon={<PlusOutlined />} 
+                <Button
+                  icon={<PlusOutlined />}
                   type="primary"
                   size="large"
-                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 border-0 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-105"
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 border-0 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-105 hover:-translate-y-0.5"
                 >
                   Create Event
                 </Button>
@@ -81,11 +87,11 @@ const AdminEventsPage = () => {
               .filter(({ title }) =>
                 title.toLowerCase().includes(searchQuery.toLowerCase())
               )
-              .sort((a, b) => new Date(b.startDate) - new Date(a.startDate))  // Add this sort
+              .sort((a, b) => new Date(b.startDate) - new Date(a.startDate))
               .map((eventDetails, index) => (
-                <div 
+                <div
                   key={`admin_events_page_event_item_${index}`}
-                  className="transform hover:scale-[1.02] transition-all duration-300"
+                  className="transform hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300"
                 >
                   <EventCard
                     allowEditDelete
@@ -96,8 +102,8 @@ const AdminEventsPage = () => {
               ))}
           </div>
         ) : (
-          <div className="p-16 text-center rounded-2xl border shadow-lg backdrop-blur-xl transition-all duration-300 bg-white/95 border-white/20 hover:shadow-xl">
-            <Empty 
+          <div className="p-16 text-center bg-white rounded-2xl border-0 shadow-lg backdrop-blur-xl transition-all duration-300 hover:shadow-xl">
+            <Empty
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={
                 <div className="space-y-3">
@@ -111,11 +117,11 @@ const AdminEventsPage = () => {
               }
             >
               <Link href="/admin/events/create">
-                <Button 
+                <Button
                   type="primary"
                   icon={<PlusOutlined />}
                   size="large"
-                  className="px-8 mt-8 h-12 bg-gradient-to-r from-blue-500 to-blue-600 border-0 shadow-md transition-all hover:shadow-lg hover:scale-105"
+                  className="px-8 mt-8 h-12 bg-gradient-to-r from-blue-500 to-purple-500 border-0 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-105 hover:-translate-y-0.5"
                 >
                   Create First Event
                 </Button>

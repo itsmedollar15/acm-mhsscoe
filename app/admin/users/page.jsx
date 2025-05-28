@@ -42,16 +42,16 @@ const AdminUsersPage = ({ searchParams: { type } }) => {
   }, [type]);
 
   return (
-    <div className="min-h-[calc(100vh-64px)] pt-24 pb-12 px-4 bg-gray-50/50">
+    <div className="min-h-[calc(100vh-64px)] pt-24 pb-12 px-4">
       <div className="mx-auto max-w-7xl">
-        <div className="p-8 mb-6 bg-white rounded-2xl shadow-sm transition-shadow hover:shadow-md">
-          <div className="flex gap-3 items-center mb-6">
-            <div className="flex justify-center items-center w-12 h-12 bg-gradient-to-br rounded-xl from-blue-500/10 to-purple-500/10">
-              <UsergroupAddOutlined className="text-xl text-blue-500" />
+        <div className="p-8 mb-6 bg-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl">
+          <div className="flex gap-4 items-center mb-6">
+            <div className="flex justify-center items-center w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl transition-all duration-300 transform hover:rotate-6 hover:scale-105">
+              <UsergroupAddOutlined className="text-2xl text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900">Manage Users</h1>
-              <p className="text-gray-500">Found: {users.length} User{users.length > 1 ? "s" : ""}</p>
+              <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Manage Users</h1>
+              <p className="text-gray-600">Found: {users.length} User{users.length > 1 ? "s" : ""}</p>
             </div>
           </div>
 
@@ -78,7 +78,7 @@ const AdminUsersPage = ({ searchParams: { type } }) => {
                   icon={<PlusOutlined />} 
                   type="primary" 
                   size="large"
-                  className="w-full sm:w-auto min-w-[140px]"
+                  className="w-full sm:w-auto min-w-[140px] bg-gradient-to-r from-blue-500 to-purple-500 border-0 transition-all duration-300 hover:scale-105"
                 >
                   Add User
                 </Button>
@@ -88,7 +88,7 @@ const AdminUsersPage = ({ searchParams: { type } }) => {
         </div>
 
         {users.length > 0 ? (
-          <div className="p-8 bg-white rounded-2xl shadow-sm transition-shadow hover:shadow-md">
+          <div className="p-8 bg-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl">
             <Row gutter={[32, 32]} justify="start">
               {users.map(({ _id, ...user }, index) => (
                 <Col
@@ -100,7 +100,7 @@ const AdminUsersPage = ({ searchParams: { type } }) => {
                   className="flex"
                 >
                   <Link href={`/admin/users/${_id}`} className="w-full">
-                    <div className="h-full">
+                    <div className="h-full transform transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1">
                       <AdminUserCard {...user} type={type} />
                     </div>
                   </Link>
@@ -109,10 +109,10 @@ const AdminUsersPage = ({ searchParams: { type } }) => {
             </Row>
           </div>
         ) : (
-          <div className="p-16 text-center bg-white rounded-2xl shadow-sm">
+          <div className="p-16 text-center bg-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl">
             <Empty 
               description={
-                <span className="block mt-4 text-gray-500">
+                <span className="block mt-4 text-lg text-gray-600">
                   No users found. Add your first user to get started.
                 </span>
               }
@@ -122,7 +122,7 @@ const AdminUsersPage = ({ searchParams: { type } }) => {
                   type="primary" 
                   icon={<PlusOutlined />}
                   size="large"
-                  className="mt-4"
+                  className="mt-6 min-w-[160px] bg-gradient-to-r from-blue-500 to-purple-500 border-0 transition-all duration-300 hover:scale-105"
                 >
                   Add New User
                 </Button>

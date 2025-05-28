@@ -66,11 +66,11 @@ const MagazineViewer = ({ magazine }) => {
   return (
     <div className="pt-16">
       <div
-        className="w-full relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100"
+        className="overflow-hidden relative w-full bg-gradient-to-br from-gray-50 via-white to-gray-100"
         style={{ height: screenSize.height }}
         ref={bookViewerRef}
       >
-        <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-4">
+        <div className="flex absolute top-0 right-0 left-0 z-10 justify-between items-center p-4">
           <Button
             onClick={() => router.back()}
             icon={<ArrowLeftOutlined />}
@@ -79,8 +79,8 @@ const MagazineViewer = ({ magazine }) => {
           >
             Back
           </Button>
-          <div className="flex items-center gap-4">
-            <span className="px-4 py-2 text-gray-800 bg-white/80 backdrop-blur-sm rounded-full">
+          <div className="flex gap-4 items-center">
+            <span className="px-4 py-2 text-gray-800 rounded-full backdrop-blur-sm bg-white/80">
               {screenSize.width < 640 ||
               currPage === 1 ||
               currPage === magazine.pages.length
@@ -101,7 +101,7 @@ const MagazineViewer = ({ magazine }) => {
           </div>
         </div>
 
-        <div className="w-full h-full absolute" style={{ top: isFullscreen ? 20 : 0 }}>
+        <div className="absolute w-full h-full" style={{ top: isFullscreen ? 20 : 0 }}>
           <ReactFlipBook
             key={screenSize.width + screenSize.height}
             startPage={currPage - 1}
@@ -138,7 +138,7 @@ const MagazineViewer = ({ magazine }) => {
                 }}
               >
                 <img
-                  className="w-full h-full object-contain"
+                  className="object-contain w-full h-full"
                   src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${pagePath}`}
                   alt={`Page ${pageIndex + 1}`}
                 />

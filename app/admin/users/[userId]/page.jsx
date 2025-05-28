@@ -64,7 +64,7 @@ const AdminUserDetailsPage = ({ params: { userId } }) => {
   }, [userId]);
 
   return (
-    <div className="flex flex-col gap-5 mb-10 h-full">
+    <div className="flex flex-col gap-5 my-10 h-full">
       <Glassmorphism className="flex flex-col gap-5 items-center p-5 sm:flex-row">
         <div className="flex-grow w-full sm:w-fit">
           <Button

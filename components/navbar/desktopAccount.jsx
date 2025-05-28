@@ -1,15 +1,31 @@
 import { DEFAULT_PROFILE_PICTURE } from "@/constants/common";
 import { LogoutOutlined } from "@ant-design/icons";
-import { LogIn, CheckCircle, Settings, User, QrCode, Users } from "lucide-react";
+import {
+  LogIn,
+  CheckCircle,
+  Settings,
+  User,
+  QrCode,
+  Users,
+} from "lucide-react";
 import { Popover } from "antd";
 import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
+import Image from "next/image";
 
 const NavbarDesktopAccount = ({ logoutUser }) => {
-  const { isLoggedIn, role, profilePicture, name, email } = useSelector(
-    (state) => state.auth
-  );
+  const { isLoggedIn, isAuthLoading, role, profilePicture, name, email } =
+    useSelector((state) => state.auth);
+
+  if (isAuthLoading) {
+    return (
+      <div className="flex gap-4 items-center">
+        <div className="w-24 h-9 bg-gray-200 rounded-lg animate-pulse" />
+        <div className="w-24 h-9 bg-gray-200 rounded-lg animate-pulse" />
+      </div>
+    );
+  }
 
   return isLoggedIn ? (
     <div className="py-1">
@@ -17,17 +33,22 @@ const NavbarDesktopAccount = ({ logoutUser }) => {
         trigger="click"
         overlayClassName="shadow-xl rounded-xl border border-gray-200"
         content={
-          <div className="w-64 p-2 space-y-1 bg-white rounded-lg">
+          <div className="p-2 space-y-1 w-64 bg-white rounded-lg">
             {/* Profile Header */}
-            <div className="flex items-center gap-3 p-3 mb-2 transition-all rounded-lg hover:bg-gray-50">
-              <Link href={`/user?email=${email}`} className="flex items-center gap-3 w-full">
+            <div className="flex gap-3 items-center p-3 mb-2 rounded-lg transition-all hover:bg-gray-50">
+              <Link
+                href={`/user?email=${email}`}
+                className="flex gap-3 items-center w-full"
+              >
                 <div className="flex-shrink-0">
-                  <img
-                    className="object-cover w-12 h-12 border border-gray-200 rounded-lg shadow-sm"
+                  <Image
+                    className="object-cover w-12 h-12 rounded-lg border border-gray-200 shadow-sm"
                     src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${
                       profilePicture ?? DEFAULT_PROFILE_PICTURE
                     }`}
                     alt="Profile"
+                    width={48}
+                    height={48}
                   />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -41,14 +62,14 @@ const NavbarDesktopAccount = ({ logoutUser }) => {
 
             {/* My Account Section */}
             <Link href="/myaccount/update-profile">
-              <div className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 transition-all rounded-lg hover:bg-gray-50">
+              <div className="flex gap-2 items-center px-3 py-2 text-sm text-gray-700 rounded-lg transition-all hover:bg-gray-50">
                 <User size={18} className="text-gray-400" />
                 <span>Update Profile</span>
               </div>
             </Link>
-            
+
             <Link href="/myaccount/qr-code">
-              <div className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 transition-all rounded-lg hover:bg-gray-50">
+              <div className="flex gap-2 items-center px-3 py-2 text-sm text-gray-700 rounded-lg transition-all hover:bg-gray-50">
                 <QrCode size={18} className="text-gray-400" />
                 <span>QR Code</span>
               </div>
@@ -57,21 +78,21 @@ const NavbarDesktopAccount = ({ logoutUser }) => {
             {/* Admin Section */}
             {role && (
               <>
-                <div className="h-px my-2 bg-gray-100" />
+                <div className="my-2 h-px bg-gray-100" />
                 <Link href="/admin/events">
-                  <div className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 transition-all rounded-lg hover:bg-gray-50">
+                  <div className="flex gap-2 items-center px-3 py-2 text-sm text-gray-700 rounded-lg transition-all hover:bg-gray-50">
                     <Settings size={18} className="text-gray-400" />
                     <span>Manage Events</span>
                   </div>
                 </Link>
                 <Link href="/admin/teams">
-                  <div className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 transition-all rounded-lg hover:bg-gray-50">
+                  <div className="flex gap-2 items-center px-3 py-2 text-sm text-gray-700 rounded-lg transition-all hover:bg-gray-50">
                     <Users size={18} className="text-gray-400" />
                     <span>Manage Teams</span>
                   </div>
                 </Link>
                 <Link href="/admin/users">
-                  <div className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 transition-all rounded-lg hover:bg-gray-50">
+                  <div className="flex gap-2 items-center px-3 py-2 text-sm text-gray-700 rounded-lg transition-all hover:bg-gray-50">
                     <Settings size={18} className="text-gray-400" />
                     <span>Manage Users</span>
                   </div>
@@ -80,10 +101,10 @@ const NavbarDesktopAccount = ({ logoutUser }) => {
             )}
 
             {/* Logout Button */}
-            <div className="h-px my-2 bg-gray-100" />
+            <div className="my-2 h-px bg-gray-100" />
             <button
               onClick={logoutUser}
-              className="flex items-center w-full gap-2 px-3 py-2 text-sm text-red-600 transition-all rounded-lg hover:bg-red-50"
+              className="flex gap-2 items-center px-3 py-2 w-full text-sm text-red-600 rounded-lg transition-all hover:bg-red-50"
             >
               <LogoutOutlined className="text-red-500" />
               <span>Logout</span>
@@ -91,25 +112,29 @@ const NavbarDesktopAccount = ({ logoutUser }) => {
           </div>
         }
       >
-        <img
-          className="object-cover w-10 h-10 transition-transform border border-gray-200 rounded-lg shadow-sm cursor-pointer hover:ring-2 hover:ring-gray-300 hover:scale-105"
+        <Image
+          className="object-cover w-10 h-10 rounded-lg border border-gray-200 shadow-sm transition-transform cursor-pointer hover:ring-2 hover:ring-gray-300 hover:scale-105"
           src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${
             profilePicture ?? DEFAULT_PROFILE_PICTURE
           }`}
           alt="User Avatar"
+          width={40}
+          height={40}
         />
       </Popover>
     </div>
   ) : (
-    <div className="flex space-x-4">
+    <div className="flex gap-4 items-center">
       <Link href="/login">
-        <button className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-blue-600 transition-all bg-white border border-blue-500 rounded-lg shadow-sm hover:bg-blue-50 hover:shadow-md focus:ring-2 focus:ring-blue-300">
-          <LogIn size={16} /> Login
+        <button className="flex gap-2 items-center px-5 py-2 text-sm font-semibold text-blue-600 bg-white rounded-lg border border-blue-500 shadow-sm transition-all hover:bg-blue-50 hover:shadow-md focus:ring-2 focus:ring-blue-300">
+          <LogIn size={18} />
+          Login
         </button>
       </Link>
       <Link href="/register">
-        <button className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white transition-all bg-blue-500 rounded-lg shadow-sm hover:bg-blue-600 hover:shadow-md focus:ring-2 focus:ring-blue-300">
-          <CheckCircle size={16} /> Register
+        <button className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white transition-all bg-[#007bff] rounded-lg shadow-sm hover:bg-[#007bff] hover:shadow-md focus:ring-2 focus:ring-blue-300">
+          <CheckCircle size={18} />
+          Register
         </button>
       </Link>
     </div>

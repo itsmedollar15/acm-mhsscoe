@@ -34,24 +34,24 @@ const MyProfileQrCodePage = () => {
 
   return (
     <div className="min-h-[calc(100vh-64px)]  mt-16">
-      <div className="relative container mx-auto px-4 py-8">
+      <div className="container relative px-4 py-8 mx-auto">
         <Link 
           href="/myaccount"
-          className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-sm font-medium text-gray-600 transition-colors rounded-lg hover:text-blue-600 hover:bg-blue-50"
+          className="inline-flex gap-2 items-center px-4 py-2 mb-8 text-sm font-medium text-gray-600 rounded-lg transition-colors hover:text-blue-600 hover:bg-blue-50"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Account
         </Link>
 
-        <div className="max-w-md mx-auto">
-          <div className="text-center mb-6">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Your Profile QR Code</h1>
+        <div className="mx-auto max-w-md">
+          <div className="mb-6 text-center">
+            <h1 className="mb-2 text-2xl font-bold text-gray-900">Your Profile QR Code</h1>
             <p className="text-sm text-gray-600">Scan to view profile</p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+          <div className="p-6 mb-6 bg-white rounded-xl shadow-md">
             <div className="flex justify-center mb-4">
-              <div className="hidden sm:block cursor-pointer" onClick={() => window.location.href = link}>
+              <div className="hidden cursor-pointer sm:block" onClick={() => window.location.href = link}>
                 <QRCode
                   size={260}  // Increased size
                   value={link}
@@ -62,7 +62,7 @@ const MyProfileQrCodePage = () => {
                   eyeRadius={8}
                 />
               </div>
-              <div className="sm:hidden cursor-pointer" onClick={() => window.location.href = link}>
+              <div className="cursor-pointer sm:hidden" onClick={() => window.location.href = link}>
                 <QRCode
                   size={200}  // Increased size
                   value={link}
@@ -85,18 +85,18 @@ const MyProfileQrCodePage = () => {
             </Button>
           </div>
 
-          <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
-            <h3 className="text-sm font-medium text-blue-900 mb-2">How to use</h3>
+          <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
+            <h3 className="mb-2 text-sm font-medium text-blue-900">How to use</h3>
             <ul className="text-sm space-y-1.5 text-blue-700">
-              <li className="flex items-center gap-2">
+              <li className="flex gap-2 items-center">
                 <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
                 <span>Open camera and point at QR code</span>
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex gap-2 items-center">
                 <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
                 <span>Tap the notification</span>
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex gap-2 items-center">
                 <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
                 <span>View profile in browser</span>
               </li>

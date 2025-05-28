@@ -8,7 +8,8 @@ export const POST = async (req) => {
   try {
     let { email } = await req.json();
     if (!email) return errorResponse(400, "Please enter email address");
-    if (!email.endsWith("@mhssce.ac.in")) return errorResponse(400, "Please enter a valid college domain email");
+    if (!email.endsWith("@mhssce.ac.in"))
+      return errorResponse(400, "Please enter a valid college domain email");
     email = email.toLowerCase();
 
     await connectDB();

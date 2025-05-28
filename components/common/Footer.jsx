@@ -1,17 +1,26 @@
 import { NAVBAR_LINKS } from "@/constants/navbarItems";
-import { Facebook, Instagram, Linkedin, Mail, ExternalLink } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  ExternalLink,
+} from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 const AppFooter = () => {
   return (
     <footer className="relative bg-gradient-to-br from-[#0a1930] via-[#112244] to-[#0a1930] text-white overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 opacity-5" 
+        <div
+          className="absolute inset-0 opacity-5"
           style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-            backgroundSize: '48px 48px'
+            backgroundImage:
+              "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
+            backgroundSize: "48px 48px",
           }}
         />
         {/* Animated Gradient Overlay */}
@@ -22,10 +31,16 @@ const AppFooter = () => {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-12">
           {/* Logo & About Section */}
           <div className="space-y-4 lg:col-span-5">
-            <img className="w-32 transition-opacity hover:opacity-90" src="/logo.png" alt="Logo" />
+            <Image
+              className="w-32 transition-opacity hover:opacity-90"
+              src="/logo.png"
+              alt="Logo"
+              width={128}
+              height={128}
+            />
             <p className="max-w-md text-[15px] leading-relaxed text-gray-200 font-medium">
-              A team of students organizing and managing technical & extra-curricular events, 
-              workshops, and competitions.
+              A team of students organizing and managing technical &
+              extra-curricular events, workshops, and competitions.
             </p>
             <div className="flex gap-4">
               <Link
@@ -47,14 +62,20 @@ const AppFooter = () => {
 
           {/* Quick Links */}
           <div className="lg:col-span-3">
-            <h3 className="mb-4 text-lg font-semibold text-white">Quick Links</h3>
+            <h3 className="mb-4 text-lg font-semibold text-white">
+              Quick Links
+            </h3>
             <ul className="space-y-2.5 text-[15px] text-gray-200">
               {NAVBAR_LINKS.map(({ label, href }, index) => (
                 <li
                   key={`footer_useful_link_${index}`}
                   className="transition-colors duration-200 hover:text-[#007bff] w-fit"
                 >
-                  <Link href={href || "#"} prefetch={false} className="inline-flex items-center gap-1.5 hover:gap-2 transition-all duration-200">
+                  <Link
+                    href={href || "#"}
+                    prefetch={false}
+                    className="inline-flex items-center gap-1.5 hover:gap-2 transition-all duration-200"
+                  >
                     {label}
                   </Link>
                 </li>
@@ -74,7 +95,10 @@ const AppFooter = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-[15px] text-gray-200 transition-all duration-200 hover:text-[#007bff] group font-medium"
               >
-                <ExternalLink size={18} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                <ExternalLink
+                  size={18}
+                  className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
                 mhssce.ac.in
               </Link>
               <div className="space-y-2">
@@ -89,7 +113,8 @@ const AppFooter = () => {
         {/* Copyright Section */}
         <div className="pt-8 mt-8 text-sm text-center text-gray-300 border-t border-gray-800/50">
           <div className="mx-auto max-w-2xl">
-            © {new Date().getFullYear()} All rights reserved | Designed & Developed by MHSSCOE ACM Webmasters
+            © {new Date().getFullYear()} All rights reserved | Designed &
+            Developed by MHSSCOE ACM Webmasters
           </div>
         </div>
       </div>

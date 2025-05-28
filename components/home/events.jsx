@@ -26,7 +26,7 @@ const HomeEventsSection = () => {
   if (events.length === 0) return null;
 
   return (
-    <section className="relative min-h-screen py-12 mt-8 overflow-hidden">
+    <section className="overflow-hidden relative py-12 mt-8 min-h-screen">
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div
@@ -46,7 +46,7 @@ const HomeEventsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto mb-8 text-center" // Reduced mb-12 to mb-8
+          className="mx-auto mb-8 max-w-3xl text-center" // Reduced mb-12 to mb-8
         >
           <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
             <span className="block text-[#007bff]">Recent Events</span>
@@ -69,7 +69,7 @@ const HomeEventsSection = () => {
               className="relative group"
             >
               <Link href={`/events/${event._id}`}>
-                <div className="relative overflow-hidden transition-all duration-500 bg-white shadow-lg rounded-2xl hover:shadow-2xl hover:-translate-y-2">
+                <div className="overflow-hidden relative bg-white rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
                   {/* Image Container with Background */}
                   <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                     {/* Blurred Background */}
@@ -78,12 +78,12 @@ const HomeEventsSection = () => {
                         src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${event.poster}`}
                         alt="background"
                         fill
-                        className="object-cover scale-110 blur-sm"
+                        className="object-cover blur-sm scale-110"
                       />
                     </div>
 
                     {/* Main Image */}
-                    <div className="relative z-10 flex items-center justify-center w-full h-full p-4">
+                    <div className="flex relative z-10 justify-center items-center p-4 w-full h-full">
                       <Image
                         src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${event.poster}`}
                         alt={event.title}
@@ -93,8 +93,8 @@ const HomeEventsSection = () => {
                     </div>
 
                     {/* Event Date Overlay */}
-                    <div className="absolute z-20 px-4 py-2 rounded-full top-4 right-4 bg-white/90 backdrop-blur-sm">
-                      <div className="flex items-center gap-2">
+                    <div className="absolute top-4 right-4 z-20 px-4 py-2 rounded-full backdrop-blur-sm bg-white/90">
+                      <div className="flex gap-2 items-center">
                         <Calendar className="w-4 h-4 text-[#007bff]" />
                         <span className="text-sm font-medium text-gray-800">
                           {new Date(event.startDate).toLocaleDateString(
@@ -119,7 +119,7 @@ const HomeEventsSection = () => {
                     </p>
 
                     {/* CTA */}
-                    <div className="flex items-center justify-between mt-4">
+                    <div className="flex justify-between items-center mt-4">
                       <div className="flex items-center gap-2 text-[#007bff]">
                         <span className="text-sm font-semibold">
                           Learn More

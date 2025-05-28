@@ -5,11 +5,18 @@ export const HERO_SECTION_IMAGES = [
   "/static/hero_section_pic4.jpeg",
 ];
 
+// export const HOME_ABOUT_IMAGES = [
+//   "/static/about_section_pic1.jpeg",
+//   "/static/about_section_pic2.jpeg",
+//   "/static/about_section_pic3.jpeg",
+//   "/static/about_section_pic4.jpeg",
+// ];
+
 export const HOME_ABOUT_IMAGES = [
-  "/static/about_section_pic1.jpeg",
-  "/static/about_section_pic2.jpeg",
-  "/static/about_section_pic3.jpeg",
-  "/static/about_section_pic4.jpeg",
+  "/static/about_section_1.jpg",
+  "/static/about_section_2.jpg",
+  "/static/about_section_3.jpg",
+  "/static/about_section_4.jpg",
 ];
 
 export const FACULTY_INCHARGES = [
@@ -29,12 +36,11 @@ export const FACULTY_INCHARGES = [
     instagram: "",
     github: "",
   },
-  // {
-  //   photo: "/static/Er. Vikas Baloda.jpg",
-  //   name: "Er. Vikas Baloda",
-  //   post: "Treasurer",
-  //   linkedin: "https://linkedin.com/in/vikasbaloda",
-  //   instagram: "",
-  //   github: "https://github.com/vikasbaloda",
-  // },
+];
+
+export const VIDEO_DATA = [
+  {
+    src: "/static/ACM.mp4",
+    title: "ACM Webathon After Movie",
+  },
 ];

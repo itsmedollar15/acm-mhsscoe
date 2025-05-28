@@ -35,11 +35,11 @@ const EventDetails = ({
               <h4 className="font-semibold text-gray-700">Start Date</h4>
             </div>
             <p className="text-gray-600">
-            {dayjs(startDate)
-              .utc()
-              .tz("Asia/Kolkata")
-              .format("ddd, MMM D, YYYY h:mm A")}
-          </p>
+              {dayjs(startDate)
+                .utc()
+                .tz("Asia/Kolkata")
+                .format("ddd, MMM D, YYYY h:mm A")}
+            </p>
           </div>
 
           <div className="p-4 rounded-lg transition-all duration-200 bg-white/50 hover:bg-white/70">
@@ -48,24 +48,26 @@ const EventDetails = ({
               <h4 className="font-semibold text-gray-700">End Date</h4>
             </div>
             <p className="text-gray-600">
-            {dayjs(endDate)
-              .utc()
-              .tz("Asia/Kolkata")
-              .format("ddd, MMM D, YYYY h:mm A")}
-          </p>
+              {dayjs(endDate)
+                .utc()
+                .tz("Asia/Kolkata")
+                .format("ddd, MMM D, YYYY h:mm A")}
+            </p>
           </div>
 
           <div className="p-4 rounded-lg transition-all duration-200 bg-white/50 hover:bg-white/70">
             <div className="flex gap-3 items-center mb-2">
               <CalendarDays className="w-5 h-5 text-blue-600" />
-              <h4 className="font-semibold text-gray-700">Registration Deadline</h4>
+              <h4 className="font-semibold text-gray-700">
+                Registration Deadline
+              </h4>
             </div>
             <p className="text-gray-600">
-            {dayjs(registrationEndDate)
-              .utc()
-              .tz("Asia/Kolkata")
-              .format("ddd, MMM D, YYYY h:mm A")}
-          </p>
+              {dayjs(registrationEndDate)
+                .utc()
+                .tz("Asia/Kolkata")
+                .format("ddd, MMM D, YYYY h:mm A")}
+            </p>
           </div>
 
           <div className="p-4 rounded-lg transition-all duration-200 bg-white/50 hover:bg-white/70">
@@ -83,7 +85,11 @@ const EventDetails = ({
         {/* Registration Button */}
         {dayjs().isBefore(dayjs(registrationEndDate)) && registrationLink && (
           <div className="pt-4">
-            <Link href={registrationLink} target="_blank" className="block w-full">
+            <Link
+              href={registrationLink}
+              target="_blank"
+              className="block w-full"
+            >
               <Button
                 type="primary"
                 size="large"

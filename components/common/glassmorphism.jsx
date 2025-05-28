@@ -3,9 +3,8 @@ import React from "react";
 const Glassmorphism = ({ children, className }) => {
   return (
     <div
-      className={`${
-        className ?? ""
-      } bg-transparent border border-white border-opacity-20 rounded-lg backdrop-blur-lg`}
+      className={`bg-transparent rounded-lg border border-white border-opacity-20 backdrop-blur-lg ${
+        className ?? ""}`}
     >
       {children}
     </div>

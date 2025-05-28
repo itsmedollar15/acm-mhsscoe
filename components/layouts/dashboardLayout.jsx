@@ -23,7 +23,6 @@ const DashboardLayout = ({ SIDER_ITEMS = [], children }) => {
   };
   return (
     <>
-     
       <Layout className="!bg-transparent !relative">
         <Layout.Sider
           className="!bg-transparent h-[calc(100%-40px)] !absolute mr-0 lg:mr-5"

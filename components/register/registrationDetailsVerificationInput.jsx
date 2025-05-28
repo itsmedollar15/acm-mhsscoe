@@ -9,7 +9,7 @@ const RegistrationDetailsVerificationInput = ({
 }) => {
   return (
     <>
-      <p className="text-center my-5">
+      <p className="my-5 text-center">
         A 6-digit verification code was sent on <br /> {email}
         <br />
         Incorrect Email ?
@@ -25,7 +25,7 @@ const RegistrationDetailsVerificationInput = ({
           size="large"
         />
       </Form.Item>
-      <div className="text-center mt-0 my-5">
+      <div className="my-5 mt-0 text-center">
         {resendVerificationTimer ? (
           <p>Resend OTP in {resendVerificationTimer}s</p>
         ) : (

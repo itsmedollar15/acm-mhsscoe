@@ -10,7 +10,7 @@ const AppProviders = ({ children }) => {
       <QueryProvider>
         <AntdStyleProvider>
           <ThemeProvider>
-              <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>{children}</AuthProvider>
           </ThemeProvider>
         </AntdStyleProvider>
       </QueryProvider>

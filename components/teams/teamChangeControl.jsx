@@ -13,7 +13,7 @@ const TeamChangeControl = ({ currYear }) => {
     });
   }, []);
   return (
-    <div className="flex items-center justify-center gap-3 p-5 mt-5 sm:justify-end">
+    <div className="flex gap-3 justify-center items-center p-5 mt-5 sm:justify-end">
       <h2 className="text-2xl italic font-bold text-gray-700">Our Team</h2>
       {teams.length > 0 ? (
         <Select

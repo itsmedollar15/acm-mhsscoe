@@ -15,6 +15,7 @@ import {
   TwitterCircleFilled,
 } from "@ant-design/icons";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 const UserDetailsPage = async ({ searchParams: { email: userEmail } }) => {
   let user;
@@ -42,11 +43,13 @@ const UserDetailsPage = async ({ searchParams: { email: userEmail } }) => {
             <div className="flex-shrink-0 group">
               <div className="inline-block relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl opacity-5 blur transition-opacity group-hover:opacity-10"></div>
-                <img
+                <Image
                   src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${
                     user.profilePicture ?? DEFAULT_PROFILE_PICTURE
                   }`}
                   alt="Profile Photo"
+                  width={160}
+                  height={160}
                   className="object-cover relative w-40 h-40 rounded-2xl ring-4 ring-white shadow-sm"
                 />
               </div>
@@ -59,8 +62,8 @@ const UserDetailsPage = async ({ searchParams: { email: userEmail } }) => {
                 {user.teams
                   .sort((a, b) => {
                     // Extract years from the team data
-                    const yearA = parseInt(a.year.split('-')[0]);
-                    const yearB = parseInt(b.year.split('-')[0]);
+                    const yearA = parseInt(a.year.split("-")[0]);
+                    const yearB = parseInt(b.year.split("-")[0]);
                     // Sort in descending order (most recent first)
                     return yearB - yearA;
                   })
@@ -71,32 +74,38 @@ const UserDetailsPage = async ({ searchParams: { email: userEmail } }) => {
                       <div
                         key={index}
                         className={`relative px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-xl border ${
-                          isCurrentPosition 
-                            ? 'border-blue-300 shadow-md scale-105' 
-                            : 'border-gray-200 shadow-sm'
+                          isCurrentPosition
+                            ? "border-blue-300 shadow-md scale-105"
+                            : "border-gray-200 shadow-sm"
                         } transition-all group hover:border-blue-200 hover:shadow-md`}
                       >
-                        <div className={`absolute inset-0 bg-gradient-to-r ${
-                          isCurrentPosition 
-                            ? 'from-blue-50/80 to-indigo-50/80' 
-                            : 'from-blue-50/0 to-indigo-50/0'
-                        } rounded-xl opacity-0 transition-opacity group-hover:opacity-100`}></div>
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-r ${
+                            isCurrentPosition
+                              ? "from-blue-50/80 to-indigo-50/80"
+                              : "from-blue-50/0 to-indigo-50/0"
+                          } rounded-xl opacity-0 transition-opacity group-hover:opacity-100`}
+                        ></div>
                         <span className="flex relative gap-2 items-center">
                           <PostLevelIcon
                             level={team.level}
-                            className={`${isCurrentPosition ? 'text-blue-600' : 'text-blue-500'}`}
+                            className={`${
+                              isCurrentPosition
+                                ? "text-blue-600"
+                                : "text-blue-500"
+                            }`}
                           />
                           <span className="font-semibold">{team.post}</span>
                           <span className="text-gray-300">|</span>
                           <span className="text-gray-600">{team.section}</span>
                         </span>
-                        <span className={`absolute -top-2 -right-2 ${
-                          isCurrentPosition 
-                            ? 'bg-blue-600' 
-                            : 'bg-gray-900'
-                        } text-white text-xs px-2 py-0.5 rounded-full shadow-sm`}>
+                        <span
+                          className={`absolute -top-2 -right-2 ${
+                            isCurrentPosition ? "bg-blue-600" : "bg-gray-900"
+                          } text-white text-xs px-2 py-0.5 rounded-full shadow-sm`}
+                        >
                           {team.year}
-                          {isCurrentPosition && ' (Current)'}
+                          {isCurrentPosition && " (Current)"}
                         </span>
                       </div>
                     );

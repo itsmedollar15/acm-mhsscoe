@@ -96,7 +96,7 @@ const ImageEditor = ({ originalImageUrl, onSaveImage, closeEditor }) => {
         />
         {imageUrl ? (
           <Cropper
-            className="w-2/3 aspect-square mx-auto my-5"
+            className="mx-auto my-5 w-2/3 aspect-square"
             src={imageUrl}
             ref={cropperRef}
             initialAspectRatio={1}
@@ -108,7 +108,7 @@ const ImageEditor = ({ originalImageUrl, onSaveImage, closeEditor }) => {
         ) : (
           <Empty className="my-10" description="No Image Selected" />
         )}
-        <div className="my-5 flex gap-5 justify-center items-center">
+        <div className="flex gap-5 justify-center items-center my-5">
           <div className="flex flex-col items-center">
             <Button
               onClick={() => pick()}
@@ -116,7 +116,7 @@ const ImageEditor = ({ originalImageUrl, onSaveImage, closeEditor }) => {
               type="primary"
               size="middle"
             />
-            <span className="text-xs mt-1">Update Image</span>
+            <span className="mt-1 text-xs">Update Image</span>
           </div>
           <div className="flex flex-col items-center">
             <Button
@@ -125,7 +125,7 @@ const ImageEditor = ({ originalImageUrl, onSaveImage, closeEditor }) => {
               type="primary"
               size="middle"
             />
-            <span className="text-xs mt-1">Rotate Left</span>
+            <span className="mt-1 text-xs">Rotate Left</span>
           </div>
           <div className="flex flex-col items-center">
             <Button
@@ -134,7 +134,7 @@ const ImageEditor = ({ originalImageUrl, onSaveImage, closeEditor }) => {
               type="primary"
               size="middle"
             />
-            <span className="text-xs mt-1">Rotate Right</span>
+            <span className="mt-1 text-xs">Rotate Right</span>
           </div>
           <div className="flex flex-col items-center">
             <Button
@@ -143,7 +143,7 @@ const ImageEditor = ({ originalImageUrl, onSaveImage, closeEditor }) => {
               type="primary"
               size="middle"
             />
-            <span className="text-xs mt-1">Reset</span>
+            <span className="mt-1 text-xs">Reset</span>
           </div>
         </div>
       </Modal>

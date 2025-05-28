@@ -15,7 +15,7 @@ const TeamDetailsPage = async ({ params: { teamYear } }) => {
   }
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen">
       <div className="container px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex flex-col">
           {/* Year Selector */}

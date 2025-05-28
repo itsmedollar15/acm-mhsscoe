@@ -3,22 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
-
-// Video data
-const VIDEO_FILES = [
-  {
-    src: "/videos/ACM.mp4",
-    title: "ACM Webathon After Movie",
-  },
-  // {
-  //   src: "/videos/1.mp4",
-  //   title: "Our Latest Event Highlights",
-  // },
-  // {
-  //   src: "/videos/1.mp4",
-  //   title: "Student Activities and Workshops",
-  // },
-];
+import { VIDEO_DATA } from "@/constants/home";
 
 export default function VideoSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -34,7 +19,7 @@ export default function VideoSection() {
     setFade(true);
     setTimeout(() => {
       setCurrentIndex((prev) =>
-        prev === 0 ? VIDEO_FILES.length - 1 : prev - 1
+        prev === 0 ? VIDEO_DATA.length - 1 : prev - 1
       );
       setFade(false);
     }, 500);
@@ -48,7 +33,7 @@ export default function VideoSection() {
     setFade(true);
     setTimeout(() => {
       setCurrentIndex((prev) =>
-        prev === VIDEO_FILES.length - 1 ? 0 : prev + 1
+        prev === VIDEO_DATA.length - 1 ? 0 : prev + 1
       );
       setFade(false);
     }, 500);
@@ -159,7 +144,7 @@ export default function VideoSection() {
               className={`w-full h-full object-cover transition-opacity duration-500 ${
                 fade ? "opacity-0" : "opacity-100"
               }`}
-              src={VIDEO_FILES[currentIndex].src}
+              src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${VIDEO_DATA[currentIndex].src}`}
               playsInline
             />
 
@@ -200,9 +185,9 @@ export default function VideoSection() {
               </motion.button>
 
               {/* Video Title */}
-              <div className="absolute right-0 bottom-0 left-0 p-6 bg-gradient-to-t to-transparent pointer-events-none select-none from-black/80 via-black/40">
-                <h3 className="text-xl font-bold text-white">
-                  {VIDEO_FILES[currentIndex].title}
+              <div className="absolute right-0 bottom-0 left-0 p-4 bg-gradient-to-t to-transparent from-black/80">
+                <h3 className="text-xl font-semibold text-white">
+                  {VIDEO_DATA[currentIndex].title}
                 </h3>
               </div>
             </div>
@@ -210,21 +195,26 @@ export default function VideoSection() {
 
           {/* Video Navigation Dots */}
           <div className="flex gap-3 justify-center mt-6">
-            {VIDEO_FILES.map((_, index) => (
+            {VIDEO_DATA.map((_, index) => (
               <button
                 key={index}
                 onClick={() => {
+                  if (videoRef.current) {
+                    videoRef.current.pause();
+                    setIsPlaying(false);
+                  }
                   setFade(true);
                   setTimeout(() => {
                     setCurrentIndex(index);
                     setFade(false);
                   }, 500);
                 }}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
+                className={`w-3 h-3 rounded-full transition-all ${
                   currentIndex === index
-                    ? "w-8 bg-[#007bff]"
-                    : "w-2.5 bg-gray-300 hover:bg-gray-400"
+                    ? "bg-blue-600 scale-110"
+                    : "bg-gray-300 hover:bg-gray-400"
                 }`}
+                aria-label={`Go to video ${index + 1}`}
               />
             ))}
           </div>

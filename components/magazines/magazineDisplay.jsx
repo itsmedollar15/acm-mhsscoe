@@ -61,11 +61,14 @@ const MagazineDisplay = ({ magazines }) => {
                         <div
                           key={`magazines_page_thumbnail_${dataIndex}`}
                           className={`my-10 w-full aspect-[1/1.414] transform transition-all duration-300 hover:scale-[1.02] ${
-                            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4' // Added translate-y
+                            isLoaded
+                              ? "opacity-100 translate-y-0"
+                              : "opacity-0 translate-y-4" // Added translate-y
                           }`}
                           style={{
-                            willChange: 'transform, opacity', // Updated willChange
-                            transition: 'opacity 300ms ease-in, transform 300ms ease-out' // Kept transition
+                            willChange: "transform, opacity", // Updated willChange
+                            transition:
+                              "opacity 300ms ease-in, transform 300ms ease-out", // Kept transition
                           }}
                         >
                           <Link href={`/magazines/${magazines[dataIndex]._id}`}>

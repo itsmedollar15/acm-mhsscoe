@@ -65,7 +65,7 @@ const AdminTeamSectionControl = ({
   return (
     <>
       <Glassmorphism className="p-5">
-        <div className="flex flex-col sm:flex-row gap-3 justify-between items-center">
+        <div className="flex flex-col gap-3 justify-between items-center sm:flex-row">
           <Space.Compact className="w-full sm:w-fit">
             <Input
               placeholder="Enter Section Title"
@@ -82,7 +82,7 @@ const AdminTeamSectionControl = ({
             </Button>
           </Space.Compact>
 
-          <div className="w-full sm:w-fit flex gap-3 justify-between items-center">
+          <div className="flex gap-3 justify-between items-center w-full sm:w-fit">
             <Button
               className="flex-1 sm:flex-auto"
               disabled={isFirst}

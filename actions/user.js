@@ -7,7 +7,7 @@ export const getUserDetailsByEmail = async (userEmail) => {
     await connectDB();
 
     let user = await User.findOne({
-      email: userEmail.replaceAll(" ","+"),
+      email: userEmail.replaceAll(" ", "+"),
     }).populate("teams.team teams.post");
 
     if (!user) throw { status: 404, message: "User not found" };

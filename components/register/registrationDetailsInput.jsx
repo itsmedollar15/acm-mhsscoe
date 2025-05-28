@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 const { MailOutlined, LockOutlined } = require("@ant-design/icons");
 const { Form, Input } = require("antd");

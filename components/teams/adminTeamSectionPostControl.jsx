@@ -22,6 +22,7 @@ import { POST_LEVELS } from "@/constants/postLevels";
 import TeamService from "@/services/team";
 import SearchUser from "../common/searchUser";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants/common";
+import Image from "next/image";
 
 const AdminTeamSectionPostControl = ({
   refresh,
@@ -102,16 +103,19 @@ const AdminTeamSectionPostControl = ({
   };
 
   return (
-    <Glassmorphism className="p-5 h-full flex flex-col justify-center items-center">
+    <Glassmorphism className="flex flex-col justify-center items-center p-5 h-full">
       {postDetails.user ? (
-        <img
-          className="rounded-full w-3/4 aspect-square object-cover mb-3"
+        <Image
+          className="object-cover mb-3 w-3/4 rounded-full aspect-square"
           src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${
             postDetails.user?.profilePicture ?? DEFAULT_PROFILE_PICTURE
           }`}
+          width={300}
+          height={300}
+          alt="User Profile"
         />
       ) : (
-        <div className="rounded-full w-3/4 aspect-square mb-3 bg-gray-400 flex justify-center items-center text-white">
+        <div className="flex justify-center items-center mb-3 w-3/4 text-white bg-gray-400 rounded-full aspect-square">
           <UserOutlined className="text-7xl" />
         </div>
       )}

@@ -19,6 +19,7 @@ import EventService from "@/services/event";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import remarkGfm from "remark-gfm";
+import Image from "next/image";
 
 const AdminEventsPageForm = ({ params: { eventId } }) => {
   const [form] = useForm();
@@ -102,59 +103,75 @@ const AdminEventsPageForm = ({ params: { eventId } }) => {
   };
 
   return (
-    <div className="pb-10 min-h-screen">
-      <Glassmorphism className="mx-auto mt-12 mb-8 w-full max-w-5xl shadow-lg"> {/* Added mt-24 here */}
-        <h2 className="my-6 text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-          {eventId === "create" ? "Create New" : "Update"} Event
+    <div className="pt-24 pb-10 min-h-screen">
+      <div className="mx-auto mb-12 w-full max-w-5xl text-center">
+        <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">
+          {eventId === "create" ? "Create New Event" : "Update Event"}
         </h2>
-      </Glassmorphism>
+        <p className="mt-4 text-lg text-gray-600">
+          {eventId === "create"
+            ? "Add a new event to the platform"
+            : "Modify existing event details"}
+        </p>
+      </div>
       <Form
-        className="flex flex-col gap-6"
+        className="flex flex-col gap-10"
         form={form}
         layout="vertical"
         size="large"
         onFinish={handleSubmit}
         requiredMark={false}
       >
-        <Glassmorphism className="p-8 mx-auto w-full max-w-5xl shadow-lg transition-all duration-300 hover:shadow-xl">
-          <Row gutter={[32, 16]}>
+        <div className="mx-auto w-full max-w-5xl rounded-2xl border border-gray-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] p-8 transition-all duration-300 hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)]">
+          <Row gutter={[32, 24]}>
             <Col span={24} md={{ span: 12 }}>
               <Form.Item
-                label={<span className="text-lg font-semibold">Event Title</span>}
+                label={
+                  <span className="text-lg font-medium text-gray-700">
+                    Event Title
+                  </span>
+                }
                 name="title"
                 rules={[
                   { required: true, message: "Please enter event title" },
                 ]}
               >
-                <Input className="rounded-lg" />
+                <Input
+                  className="h-12 rounded-xl border-gray-200 transition-colors hover:border-blue-400 focus:border-blue-500"
+                  placeholder="Enter event title"
+                />
               </Form.Item>
               <Form.Item
-                label={<span className="text-lg font-semibold">Event Description</span>}
+                label={
+                  <span className="text-lg font-medium text-gray-700">
+                    Event Description
+                  </span>
+                }
                 name="description"
                 rules={[
                   { required: true, message: "Please enter event description" },
                 ]}
               >
-                <Input.TextArea 
-                  className="rounded-lg" 
+                <Input.TextArea
+                  className="rounded-xl border-gray-200 transition-colors hover:border-blue-400 focus:border-blue-500"
                   autoSize={{ minRows: 3, maxRows: 6 }}
+                  placeholder="Describe your event"
                 />
               </Form.Item>
             </Col>
             <Col span={24} md={{ span: 12 }}>
               <Form.Item
-                label={<span className="text-lg font-semibold">Event Poster</span>}
+                label={
+                  <span className="text-lg font-medium text-gray-700">
+                    Event Poster
+                  </span>
+                }
                 name="poster"
                 valuePropName="file"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Select Poster",
-                  },
-                ]}
+                rules={[{ required: true, message: "Please Select Poster" }]}
               >
                 <Upload.Dragger
-                  className="!bg-transparent rounded-xl overflow-hidden border-2 border-dashed hover:border-blue-500 transition-all duration-300"
+                  className="!bg-white rounded-xl overflow-hidden border-2 border-dashed border-gray-300 hover:border-blue-500 transition-all duration-300"
                   accept="image/png, image/jpeg"
                   customRequest={() => {}}
                   showUploadList={false}
@@ -162,63 +179,55 @@ const AdminEventsPageForm = ({ params: { eventId } }) => {
                   onChange={handlePosterChange}
                 >
                   {posterData ? (
-                    <div className="relative w-full aspect-video">
-                      <img
+                    <div className="relative w-full aspect-video group">
+                      <Image
                         className="object-contain w-full h-full"
                         src={posterData}
                         alt="Event poster"
+                        width={800}
+                        height={450}
                       />
-                      <div className="absolute top-0 w-full h-full -z-[1]">
-                        <img
-                          className="object-cover w-full h-full blur-lg"
-                          src={posterData}
-                          alt="Background blur"
-                        />
-                      </div>
-                      <div className="flex absolute top-0 flex-col justify-center items-center w-full h-full text-white bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 hover:opacity-100">
-                        <p className="text-4xl ant-upload-drag-icon">
-                          <PlusOutlined />
-                        </p>
-                        <p className="ant-upload-text !text-white text-lg mt-3">
-                          Click or drag file to this area to change
-                        </p>
-                        <Button
-                          className="mt-4 !bg-red-500 hover:!bg-red-600 transition-colors duration-300"
-                          type="primary"
-                          size="middle"
-                          icon={<DeleteOutlined />}
-                          onClick={(e) => {
-                            setPosterData();
-                            form.resetFields(["poster"]);
-                            e.stopPropagation();
-                          }}
-                        >
-                          Remove Image
-                        </Button>
+                      <div className="flex absolute inset-0 justify-center items-center opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 bg-black/60">
+                        <div className="text-center text-white transition-transform duration-300 transform scale-95 group-hover:scale-100">
+                          <PlusOutlined className="mb-3 text-4xl" />
+                          <p className="text-lg font-medium">Change Image</p>
+                          <Button
+                            className="mt-4 border-none backdrop-blur-sm bg-red-500/90 hover:bg-red-600"
+                            type="primary"
+                            icon={<DeleteOutlined />}
+                            onClick={(e) => {
+                              setPosterData();
+                              form.resetFields(["poster"]);
+                              e.stopPropagation();
+                            }}
+                          >
+                            Remove
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-col justify-center items-center p-8 w-full h-full">
-                      <p className="text-5xl text-blue-500 ant-upload-drag-icon">
-                        <InboxOutlined />
+                    <div className="px-4 py-16 text-center group">
+                      <InboxOutlined className="mb-4 text-6xl text-blue-500 transition-transform duration-300 group-hover:scale-110" />
+                      <p className="mb-2 text-xl font-medium text-gray-700">
+                        Drop your event poster here
                       </p>
-                      <p className="mt-4 text-xl font-medium ant-upload-text">
-                        Click or drag file to this area to upload
-                      </p>
-                      <p className="mt-2 text-gray-500 ant-upload-hint">
-                        Select or Drop an Image for Event Poster
-                      </p>
+                      <p className="text-gray-500">or click to browse</p>
                     </div>
                   )}
                 </Upload.Dragger>
               </Form.Item>
             </Col>
           </Row>
-        </Glassmorphism>
+        </div>
 
-        <Glassmorphism className="p-8 mx-auto w-full max-w-5xl shadow-lg transition-all duration-300 hover:shadow-xl">
+        <div className="mx-auto w-full max-w-5xl rounded-2xl border border-gray-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] p-8 transition-all duration-300 hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)]">
           <Form.Item
-            label={<span className="text-lg font-semibold">Event Duration</span>}
+            label={
+              <span className="text-lg font-medium text-gray-700">
+                Event Duration
+              </span>
+            }
             name="eventDuration"
             rules={[
               { required: true, message: "Please select event duration" },
@@ -226,13 +235,17 @@ const AdminEventsPageForm = ({ params: { eventId } }) => {
           >
             <DatePicker.RangePicker
               placement="topLeft"
-              className="w-full rounded-lg"
+              className="w-full h-12 rounded-xl border-gray-200 transition-colors hover:border-blue-400 focus:border-blue-500"
               showTime={{ format: "hh:mm A" }}
               format="DD/MM/YY h:mm A"
             />
           </Form.Item>
           <Form.Item
-            label={<span className="text-lg font-semibold">Registration End Date</span>}
+            label={
+              <span className="text-lg font-medium text-gray-700">
+                Registration Deadline
+              </span>
+            }
             name="registrationEndDate"
             rules={[
               {
@@ -242,15 +255,19 @@ const AdminEventsPageForm = ({ params: { eventId } }) => {
             ]}
           >
             <DatePicker
-              className="w-full rounded-lg"
+              className="w-full h-12 rounded-xl border-gray-200 transition-colors hover:border-blue-400 focus:border-blue-500"
               showTime={{ format: "hh:mm A" }}
               format="DD/MM/YY h:mm A"
             />
           </Form.Item>
-          <Row gutter={[32, 16]}>
+          <Row gutter={[32, 24]} className="mt-8">
             <Col span={24} md={{ span: 12 }}>
               <Form.Item
-                label={<span className="text-lg font-semibold">Entry Fees (Members)</span>}
+                label={
+                  <span className="text-lg font-medium text-gray-700">
+                    Entry Fees (Members)
+                  </span>
+                }
                 name="membersEntryFees"
                 rules={[
                   {
@@ -259,65 +276,94 @@ const AdminEventsPageForm = ({ params: { eventId } }) => {
                   },
                 ]}
               >
-                <Input type="number" className="rounded-lg" />
+                <Input
+                  type="number"
+                  className="h-12 rounded-xl border-gray-200 transition-colors hover:border-blue-400 focus:border-blue-500"
+                  prefix="₹"
+                  placeholder="0.00"
+                />
               </Form.Item>
             </Col>
             <Col span={24} md={{ span: 12 }}>
               <Form.Item
-                label={<span className="text-lg font-semibold">Entry Fees (Others)</span>}
+                label={
+                  <span className="text-lg font-medium text-gray-700">
+                    Entry Fees (Others)
+                  </span>
+                }
                 name="entryFees"
                 rules={[{ required: true, message: "Please enter entry fees" }]}
               >
-                <Input type="number" className="rounded-lg" />
+                <Input
+                  type="number"
+                  className="h-12 rounded-xl border-gray-200 transition-colors hover:border-blue-400 focus:border-blue-500"
+                  prefix="₹"
+                  placeholder="0.00"
+                />
               </Form.Item>
             </Col>
           </Row>
           <Form.Item
-            label={<span className="text-lg font-semibold">Registration Link (Optional)</span>}
+            label={
+              <span className="text-lg font-medium text-gray-700">
+                Registration Link
+              </span>
+            }
             name="registrationLink"
           >
-            <Input className="rounded-lg" />
+            <Input
+              className="h-12 rounded-xl border-gray-200 transition-colors hover:border-blue-400 focus:border-blue-500"
+              placeholder="https://example.com/register"
+            />
           </Form.Item>
-        </Glassmorphism>
+        </div>
 
-        <Glassmorphism className="p-8 mx-auto w-full max-w-5xl shadow-lg transition-all duration-300 hover:shadow-xl">
-          <Row gutter={[32, 16]}>
+        <div className="mx-auto w-full max-w-5xl rounded-2xl border border-gray-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] p-8 transition-all duration-300 hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)]">
+          <Row gutter={[32, 24]}>
             <Col span={24} md={{ span: 12 }}>
               <Form.Item
-                label={<span className="text-lg font-semibold">Event Blog</span>}
+                label={
+                  <span className="text-lg font-medium text-gray-700">
+                    Event Blog
+                  </span>
+                }
                 name="blog"
                 rules={[{ required: true, message: "Please write event blog" }]}
               >
                 <Input.TextArea
-                  className="rounded-lg"
+                  className="rounded-xl border-gray-200 transition-colors hover:border-blue-400 focus:border-blue-500"
                   autoSize={{ minRows: 6, maxRows: 12 }}
-                  placeholder="Write in Markdown"
+                  placeholder="Write your event details in Markdown format..."
                   onChange={handleBlogEdit}
                 />
               </Form.Item>
             </Col>
             <Col span={24} md={{ span: 12 }}>
               {blogMarkdown !== "" && (
-                <div className="p-6 bg-white rounded-lg shadow-inner">
-                  <h3 className="mb-4 text-lg font-semibold">Preview</h3>
-                  <Markdown className="max-w-none prose" remarkPlugins={remarkGfm}>
-                    {blogMarkdown}
-                  </Markdown>
+                <div className="overflow-auto p-6 h-full rounded-xl border border-gray-200 shadow-inner bg-gray-50/50">
+                  <h3 className="mb-4 text-lg font-medium text-gray-700">
+                    Preview
+                  </h3>
+                  <div className="max-w-none prose prose-blue prose-img:rounded-lg">
+                    <Markdown remarkPlugins={remarkGfm}>
+                      {blogMarkdown}
+                    </Markdown>
+                  </div>
                 </div>
               )}
             </Col>
           </Row>
-        </Glassmorphism>
+        </div>
 
-        <Glassmorphism className="p-8 mx-auto w-full max-w-5xl text-center shadow-lg">
-          <Button 
-            type="primary" 
-            htmlType="submit" 
-            className="w-full h-12 text-lg font-medium bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg transition-all duration-300 md:w-64 hover:from-blue-600 hover:to-purple-700"
+        <div className="py-8 mx-auto w-full max-w-5xl text-center">
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="h-14 px-16 text-lg font-medium bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl transition-all duration-300 hover:from-blue-700 hover:to-blue-900 transform hover:scale-[1.02] hover:shadow-lg"
           >
-            {eventId === "create" ? "Create" : "Update"} Event
+            {eventId === "create" ? "Create Event" : "Save Changes"}
           </Button>
-        </Glassmorphism>
+        </div>
       </Form>
     </div>
   );

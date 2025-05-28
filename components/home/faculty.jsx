@@ -3,6 +3,7 @@
 import { FACULTY_INCHARGES } from "@/constants/home";
 import { motion } from "framer-motion";
 import { FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
+import Image from "next/image";
 
 export default function FacultySection() {
   return (
@@ -54,20 +55,24 @@ export default function FacultySection() {
                 <div className="relative pt-[100%] overflow-hidden">
                   {/* Background Blur */}
                   <div className="absolute inset-0">
-                    <img
+                    <Image
                       src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${faculty.photo}`}
                       alt={faculty.name}
                       className="object-cover w-full h-full opacity-30 blur-md scale-110"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   </div>
 
                   {/* Main Image */}
                   <div className="flex absolute inset-0 z-10 justify-center items-center p-4">
                     <div className="overflow-hidden relative w-40 h-40 rounded-full border-4 border-white shadow-lg">
-                      <img
+                      <Image
                         src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${faculty.photo}`}
                         alt={faculty.name}
                         className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                        fill
+                        sizes="160px"
                       />
                     </div>
                   </div>

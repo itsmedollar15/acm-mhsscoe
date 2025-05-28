@@ -51,7 +51,7 @@ const EventsPage = () => {
               transition={{
                 duration: 0.1,
                 ease: "easeOut",
-                delay: index * 0.05
+                delay: index * 0.05,
               }}
               viewport={{ amount: 0.1, once: true }}
             >
@@ -64,10 +64,13 @@ const EventsPage = () => {
                       <div className="flex gap-2 items-center">
                         <Calendar className="w-4 h-4 text-blue-600" />
                         <span className="text-sm font-medium text-gray-800">
-                          {new Date(eventDetails.startDate).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                          })}
+                          {new Date(eventDetails.startDate).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "numeric",
+                            }
+                          )}
                         </span>
                       </div>
                     </div>

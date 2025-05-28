@@ -4,6 +4,7 @@ import { ROLES } from "@/constants/roles";
 import { Card } from "antd";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants/common";
 import { YEARS } from "@/constants/years";
+import Image from "next/image";
 
 const AdminUserCard = ({
   profilePicture,
@@ -20,11 +21,14 @@ const AdminUserCard = ({
         className="!bg-transparent border-none"
         hoverable
         cover={
-          <img
-            className="aspect-square object-cover"
+          <Image
+            className="object-cover aspect-square"
             src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${
               profilePicture ?? DEFAULT_PROFILE_PICTURE
             }`}
+            alt={name ?? "User Profile"}
+            width={300}
+            height={300}
           />
         }
       >

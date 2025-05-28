@@ -11,7 +11,8 @@ export const POST = async (req) => {
 
     const { email } = verifyEmailToken(emailToken);
     if (!email) return errorResponse(401, "Invalid token");
-    if (!email.endsWith("@mhssce.ac.in")) return errorResponse(400, "Please enter a valid college domain email");
+    if (!email.endsWith("@mhssce.ac.in"))
+      return errorResponse(400, "Please enter a valid college domain email");
 
     await connectDB();
 
@@ -29,10 +30,8 @@ export const POST = async (req) => {
       process.env.MEMBERSHIP_API + `?email=${user.email}`
     );
     if (membershipResponse.ok) {
-      const {
-        success,
-        data: { membershipId } = {},
-      } = await membershipResponse.json();
+      const { success, data: { membershipId } = {} } =
+        await membershipResponse.json();
 
       if (success) {
         user.membershipId = membershipId;

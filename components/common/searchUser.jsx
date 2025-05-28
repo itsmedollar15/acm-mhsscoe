@@ -3,6 +3,7 @@ import { YEARS } from "@/constants/years";
 import UserService from "@/services/user";
 import { Col, Empty, Flex, Row, Select, message as showMessage } from "antd";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
 const SearchUser = ({ selectedUser, onUserSearched }) => {
   const [users, setUsers] = useState(selectedUser ? [selectedUser] : []);
@@ -53,15 +54,18 @@ const SearchUser = ({ selectedUser, onUserSearched }) => {
       }
       value={selectedUser?._id ?? null}
       optionRender={({ value: optionUserId }) => (
-        <div className="py-1 flex justify-center items-center">
-          <img
-            className="rounded-full w-12 aspect-square object-cover"
+        <div className="flex justify-center items-center py-1">
+          <Image
+            className="object-cover w-12 rounded-full aspect-square"
             src={`${process.env.NEXT_PUBLIC_FILE_SERVER}${
               users.find(({ _id }) => _id === optionUserId)?.profilePicture ??
               DEFAULT_PROFILE_PICTURE
             }`}
+            alt="User profile"
+            width={48}
+            height={48}
           />
-          <p className="flex-grow font-semibold text-sm px-1 overflow-hidden text-ellipsis">
+          <p className="overflow-hidden flex-grow px-1 text-sm font-semibold text-ellipsis">
             {users.find(({ _id }) => _id === optionUserId)?.name ??
               users.find(({ _id }) => _id === optionUserId)?.email}
           </p>
@@ -83,8 +87,8 @@ const SearchUser = ({ selectedUser, onUserSearched }) => {
       options={users.map(({ _id, name, email, year, branch }) => ({
         value: _id,
         label: (
-          <div className="py-1 flex justify-center items-center">
-            <p className="flex-grow font-semibold text-sm px-1 overflow-hidden text-ellipsis">
+          <div className="flex justify-center items-center py-1">
+            <p className="overflow-hidden flex-grow px-1 text-sm font-semibold text-ellipsis">
               {name ?? email}
             </p>
             {year && branch && (

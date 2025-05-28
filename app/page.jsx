@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-full gap-10 pb-10">
+    <div className="flex flex-col gap-10 pb-10 h-full">
       <HomeHeroSection />
       <HomeAboutSection />
       <HomeEventsSection />

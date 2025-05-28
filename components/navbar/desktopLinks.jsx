@@ -43,7 +43,7 @@ function NavbarDesktopLinks() {
   }));
 
   return (
-    <div className="flex justify-center flex-1 text-center">
+    <div className="flex flex-1 justify-center text-center">
       <Menu
         className="flex justify-center !bg-transparent !border-none !shadow-none min-h-[48px]"
         mode="horizontal"
